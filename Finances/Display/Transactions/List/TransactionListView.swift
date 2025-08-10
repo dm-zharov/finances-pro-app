@@ -321,37 +321,6 @@ struct TransactionListView: View {
     .modelContainer(previewContainer)
 }
 
-extension SortOrder: CustomLocalizedStringResourceConvertible {
-    public var localizedStringResource: LocalizedStringResource {
-        switch self {
-        case .forward:
-            "Forward"
-        case .reverse:
-            "Reverse"
-        }
-    }
-    
-    public var symbolName: String {
-        switch self {
-        case .forward:
-            SymbolName.menu(.chevronUp).rawValue
-        case .reverse:
-            SymbolName.menu(.chevronDown).rawValue
-        }
-    }
-}
-
-extension SortOrder {
-    mutating func toggle() {
-        switch self {
-        case .forward:
-            self = .reverse
-        case .reverse:
-            self = .forward
-        }
-    }
-}
-
 extension Transaction {
     var container: Container<Transaction.ID> {
         Container(id: id)
