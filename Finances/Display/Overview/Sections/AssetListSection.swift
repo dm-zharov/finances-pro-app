@@ -9,6 +9,7 @@ import SwiftUI
 import AppUI
 import SwiftData
 import OSLog
+import FinancesCore
 
 struct AssetListSection: View {
     @Environment(\.navigator) private var navigator

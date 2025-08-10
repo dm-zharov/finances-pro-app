@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 import AppUI
 import FoundationExtension
+import FinancesCore
 
 struct CategorySelectorView: View {
     @Environment(\.isPresented) private var isPresented

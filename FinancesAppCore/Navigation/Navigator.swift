@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FinancesCore
 
 @Observable
 final class Navigator: @unchecked Sendable {

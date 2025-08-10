@@ -8,35 +8,35 @@
 import Foundation
 import FoundationExtension
 
-enum StorageKey {
-    static let isGreetingScreenEnabled = "GreetingScreenEnabled"
+public enum StorageKey {
+    public static let isGreetingScreenEnabled = "GreetingScreenEnabled"
 }
 
-enum SettingKey {
+public enum SettingKey {
     // Appearance
-    static let preferredColorScheme: String = "PreferredColorScheme"
-    static let accentColor: String = "AccentColor"
+    public static let preferredColorScheme: String = "PreferredColorScheme"
+    public static let accentColor: String = "AccentColor"
     
     // Currency
-    static let currencyCode: String = "CurrencyCode"
-    static let isCurrencyConversionEnabled: String = "CurrencyConversionEnabled"
+    public static let currencyCode: String = "CurrencyCode"
+    public static let isCurrencyConversionEnabled: String = "CurrencyConversionEnabled"
     
     // Privacy
-    static let obscureSensitiveContent = "ObscureSensitiveContent"
+    public static let obscureSensitiveContent = "ObscureSensitiveContent"
     
     // Ordering
-    static let assetsOrder: String = "AssetsOrder"
-    static let categoriesOrder: String = "CategoriesOrder"
-    static let categoryGroupsOrder = "CategoryGroupsOrder"
+    public static let assetsOrder: String = "AssetsOrder"
+    public static let categoriesOrder: String = "CategoriesOrder"
+    public static let categoryGroupsOrder = "CategoryGroupsOrder"
 }
 
-enum Constants {
-    enum URL {
-        static let scheme: String = "finances"
+public enum Constants {
+    public enum URL {
+        public static let scheme: String = "finances"
     }
     
-    enum AppGroup {
-        static let id: String = {
+    public enum AppGroup {
+        public static let id: String = {
             #if DEBUG
             "group.dev.zharov.sandbox"
             #else
@@ -45,7 +45,7 @@ enum Constants {
         }()
     }
     
-    enum CloudKit {
-        static let id: String = "iCloud.dev.zharov.finances"
+    public enum CloudKit {
+        public static let id: String = "iCloud.dev.zharov.finances"
     }
 }

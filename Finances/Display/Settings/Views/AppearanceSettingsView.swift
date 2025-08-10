@@ -8,6 +8,7 @@
 import SwiftUI
 import AppUI
 import FoundationExtension
+import FinancesCore
 
 extension ColorScheme: RawRepresentable {
     public var rawValue: String {

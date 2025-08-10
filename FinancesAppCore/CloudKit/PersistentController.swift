@@ -10,6 +10,7 @@ import CloudKit
 import SwiftData
 import OSLog
 import FoundationExtension
+import FinancesCore
 
 class PersistentController {
     static var directoryURL: URL {

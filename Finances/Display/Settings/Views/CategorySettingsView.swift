@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import FoundationExtension
+import FinancesCore
 
 struct CategorySettingsView: View {
     @Environment(\.modelContext) private var modelContext

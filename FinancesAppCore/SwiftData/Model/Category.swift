@@ -11,6 +11,7 @@ import SwiftData
 import AppUI
 import FoundationExtension
 import AppIntents
+import FinancesCore
 
 protocol ExternallyIdentifiable: AnyObject {
     associatedtype ExternalID: EntityIdentifierConvertible

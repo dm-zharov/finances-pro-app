@@ -129,8 +129,8 @@ extension AssetEntity: AppEntity {
     #if os(watchOS)
     var displayRepresentationImage: DisplayRepresentation.Image? {
         return DisplayRepresentation.Image(
-            systemName: type.symbolName.rawValue,
-            symbolConfiguration: CKImage.SymbolConfiguration(scale: .large)
+            systemName: type.symbolName,
+            symbolConfiguration: PlatformImage.SymbolConfiguration(scale: .large)
         )
     }
     #else

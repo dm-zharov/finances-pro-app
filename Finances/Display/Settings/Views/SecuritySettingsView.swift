@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftAuthn
 internal import LocalAuthentication
 import AppUI
+import FinancesCore
 
 enum LockRate {
     case immediately

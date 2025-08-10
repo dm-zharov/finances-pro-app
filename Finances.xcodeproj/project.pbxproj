@@ -19,17 +19,19 @@
 		237B95832BBAB70600FDE1A9 /* HapticFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 237B95822BBAB70600FDE1A9 /* HapticFeedback */; };
 		23919FFD2E4863D6001200C6 /* FinancesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 23AEDC7C2B49924F0055A930 /* FinancesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2391A00E2E488587001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
-		2391A0182E488587001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
-		2391A01A2E488587001200C6 /* FinancesCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2391A0AD2E48865D001200C6 /* AppUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A0AC2E48865D001200C6 /* AppUI */; };
 		2391A0AF2E488666001200C6 /* CurrencyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A0AE2E488666001200C6 /* CurrencyKit */; };
 		2391A0B12E48866E001200C6 /* FoundationExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A0B02E48866E001200C6 /* FoundationExtension */; };
 		2391A0B32E488672001200C6 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A0B22E488672001200C6 /* OrderedCollections */; };
-		2391A0CD2E488B58001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
-		2391A0CE2E488B58001200C6 /* FinancesCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2391A0FD2E48BFE9001200C6 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A0FC2E48BFE9001200C6 /* Algorithms */; };
-		2391A1042E48C05C001200C6 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A1032E48C05C001200C6 /* Algorithms */; };
 		2391A1062E48C064001200C6 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A1052E48C064001200C6 /* Algorithms */; };
+		2391A1142E48C925001200C6 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A1132E48C925001200C6 /* Algorithms */; };
+		2391A1402E48CC62001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
+		2391A1412E48CC62001200C6 /* FinancesCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2391A1452E48CC67001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
+		2391A1462E48CC67001200C6 /* FinancesCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2391A14A2E48CC6B001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
+		2391A14B2E48CC6B001200C6 /* FinancesCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23998D4C2B872BE5009DACB9 /* SwiftSecurity in Frameworks */ = {isa = PBXBuildFile; productRef = 23998D4B2B872BE5009DACB9 /* SwiftSecurity */; };
 		2399F5152B163214006DD9F6 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 2399F5142B163214006DD9F6 /* SwiftCSV */; };
 		23AE5CFD2BBD010600EB59EF /* HapticFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 23AE5CFC2BBD010600EB59EF /* HapticFeedback */; };
@@ -88,14 +90,21 @@
 			remoteGlobalIDString = 2359B4242952039800593AA9;
 			remoteInfo = Finances;
 		};
-		2391A0162E488587001200C6 /* PBXContainerItemProxy */ = {
+		2391A1422E48CC62001200C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2359B41D2952039800593AA9 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2391A0022E488587001200C6;
 			remoteInfo = FinancesCore;
 		};
-		2391A0CF2E488B58001200C6 /* PBXContainerItemProxy */ = {
+		2391A1472E48CC67001200C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2359B41D2952039800593AA9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2391A0022E488587001200C6;
+			remoteInfo = FinancesCore;
+		};
+		2391A14C2E48CC6B001200C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2359B41D2952039800593AA9 /* Project object */;
 			proxyType = 1;
@@ -133,24 +142,35 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2391A0192E488587001200C6 /* Embed Frameworks */ = {
+		2391A1442E48CC62001200C6 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2391A01A2E488587001200C6 /* FinancesCore.framework in Embed Frameworks */,
+				2391A1412E48CC62001200C6 /* FinancesCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2391A0D12E488B58001200C6 /* Embed Frameworks */ = {
+		2391A1492E48CC67001200C6 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2391A0CE2E488B58001200C6 /* FinancesCore.framework in Embed Frameworks */,
+				2391A1462E48CC67001200C6 /* FinancesCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2391A14E2E48CC6B001200C6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2391A14B2E48CC6B001200C6 /* FinancesCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,28 +217,6 @@
 			);
 			target = 23AEDC7B2B49924F0055A930 /* FinancesWidgetExtension */;
 		};
-		239198442E47E272001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				AppIntents/AppEntity/AssetEntity.swift,
-				AppIntents/AppEntity/CategoryEntity.swift,
-				AppIntents/AppIntent/Navigate.swift,
-				AppIntents/AppIntent/NewTransaction.swift,
-				AppIntents/AppIntent/OpenAsset.swift,
-				AppIntents/WidgetConfigurationIntent/AssetConfiguration.swift,
-				AppIntents/WidgetConfigurationIntent/AssetListConfiguration.swift,
-				CloudKit/Public.xcdatamodeld,
-			);
-			target = 23574CC12B9DC14700B9B73D /* FinancesWatchApp */;
-		};
-		23919A232E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Finances.storekit,
-				Info.plist,
-			);
-			target = 2359B4242952039800593AA9 /* Finances */;
-		};
 		23919A242E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -235,12 +233,12 @@
 			);
 			target = 23574CC12B9DC14700B9B73D /* FinancesWatchApp */;
 		};
-		2391A0B92E48883E001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		2391A12B2E48CB83001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				CloudKit/Public.xcdatamodeld,
+				Info.plist,
 			);
-			target = 23AEDC7B2B49924F0055A930 /* FinancesWidgetExtension */;
+			target = 2359B4242952039800593AA9 /* Finances */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -251,9 +249,11 @@
 		239197042E47E268001200C6 /* FinancesWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (239197152E47E268001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FinancesWidget; sourceTree = "<group>"; };
 		239197192E47E26B001200C6 /* FinancesUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesUITests; sourceTree = "<group>"; };
 		2391971D2E47E26F001200C6 /* FinancesTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesTests; sourceTree = "<group>"; };
-		239197672E47E271001200C6 /* FinancesCore */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (239198442E47E272001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 2391A0B92E48883E001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FinancesCore; sourceTree = "<group>"; };
-		2391995B2E47E2F5001200C6 /* Finances */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (23919A232E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 23919A252E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 23919A242E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Finances; sourceTree = "<group>"; };
+		239197672E47E271001200C6 /* FinancesAppCore */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesAppCore; sourceTree = "<group>"; };
+		2391995B2E47E2F5001200C6 /* Finances */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (2391A12B2E48CB83001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 23919A252E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 23919A242E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Finances; sourceTree = "<group>"; };
 		2391A0132E488587001200C6 /* FinancesCoreTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesCoreTests; sourceTree = "<group>"; };
+		2391A1152E48C999001200C6 /* FinancesAppIntents */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesAppIntents; sourceTree = "<group>"; };
+		2391A1232E48CA29001200C6 /* FinancesCore */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesCore; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,12 +261,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2391A1452E48CC67001200C6 /* FinancesCore.framework in Frameworks */,
 				2391A1062E48C064001200C6 /* Algorithms in Frameworks */,
 				23574D112B9DC53200B9B73D /* CurrencyKit in Frameworks */,
 				23574D132B9DC54500B9B73D /* AppUI in Frameworks */,
 				23574D2B2B9DDFF800B9B73D /* OrderedCollections in Frameworks */,
 				236100FA2C970B8F002F6F7F /* FoundationExtension in Frameworks */,
-				2391A0CD2E488B58001200C6 /* FinancesCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,11 +297,11 @@
 				23DB9CFB2C90727F0098B17C /* Expression in Frameworks */,
 				23E192B72AEBEFC400D93110 /* KeyboardKit in Frameworks */,
 				236100F62C970B81002F6F7F /* FoundationExtension in Frameworks */,
+				2391A1402E48CC62001200C6 /* FinancesCore.framework in Frameworks */,
 				23998D4C2B872BE5009DACB9 /* SwiftSecurity in Frameworks */,
 				23FC95772B957DD3006A91EB /* AppUI in Frameworks */,
 				2399F5152B163214006DD9F6 /* SwiftCSV in Frameworks */,
 				237B95832BBAB70600FDE1A9 /* HapticFeedback in Frameworks */,
-				2391A0182E488587001200C6 /* FinancesCore.framework in Frameworks */,
 				23F253002AF3BE950020FCE3 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,11 +343,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2391A1042E48C05C001200C6 /* Algorithms in Frameworks */,
+				2391A1142E48C925001200C6 /* Algorithms in Frameworks */,
 				23AEDCD62B49EFDD0055A930 /* CurrencyKit in Frameworks */,
 				236100F82C970B89002F6F7F /* FoundationExtension in Frameworks */,
 				23FC957B2B957DDB006A91EB /* AppUI in Frameworks */,
 				23AEDC812B49924F0055A930 /* SwiftUI.framework in Frameworks */,
+				2391A14A2E48CC6B001200C6 /* FinancesCore.framework in Frameworks */,
 				23AEDC7F2B49924F0055A930 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,7 +360,9 @@
 			isa = PBXGroup;
 			children = (
 				2391995B2E47E2F5001200C6 /* Finances */,
-				239197672E47E271001200C6 /* FinancesCore */,
+				2391A1152E48C999001200C6 /* FinancesAppIntents */,
+				2391A1232E48CA29001200C6 /* FinancesCore */,
+				239197672E47E271001200C6 /* FinancesAppCore */,
 				2391A0132E488587001200C6 /* FinancesCoreTests */,
 				2391971D2E47E26F001200C6 /* FinancesTests */,
 				239197192E47E26B001200C6 /* FinancesUITests */,
@@ -418,16 +421,17 @@
 				23574CBF2B9DC14700B9B73D /* Frameworks */,
 				23574CC02B9DC14700B9B73D /* Resources */,
 				23574D752B9DEDE600B9B73D /* Embed Foundation Extensions */,
-				2391A0D12E488B58001200C6 /* Embed Frameworks */,
+				2391A1492E48CC67001200C6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2391A0D02E488B58001200C6 /* PBXTargetDependency */,
+				2391A1482E48CC67001200C6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				239196EA2E47E264001200C6 /* FinancesWatchApp */,
-				239197672E47E271001200C6 /* FinancesCore */,
+				239197672E47E271001200C6 /* FinancesAppCore */,
+				2391A1152E48C999001200C6 /* FinancesAppIntents */,
 			);
 			name = FinancesWatchApp;
 			packageProductDependencies = (
@@ -492,17 +496,18 @@
 				2359B4232952039800593AA9 /* Resources */,
 				23AEDC8D2B4992510055A930 /* Embed Foundation Extensions */,
 				23574CE62B9DC14900B9B73D /* Embed Watch Content */,
-				2391A0192E488587001200C6 /* Embed Frameworks */,
+				2391A1442E48CC62001200C6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				23AEDC8B2B4992510055A930 /* PBXTargetDependency */,
-				2391A0172E488587001200C6 /* PBXTargetDependency */,
+				2391A1432E48CC62001200C6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				239197672E47E271001200C6 /* FinancesCore */,
+				239197672E47E271001200C6 /* FinancesAppCore */,
 				2391995B2E47E2F5001200C6 /* Finances */,
+				2391A1152E48C999001200C6 /* FinancesAppIntents */,
 			);
 			name = Finances;
 			packageProductDependencies = (
@@ -580,6 +585,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				2391A1232E48CA29001200C6 /* FinancesCore */,
+			);
 			name = FinancesCore;
 			packageProductDependencies = (
 				2391A0AC2E48865D001200C6 /* AppUI */,
@@ -622,21 +630,24 @@
 				23AEDC782B49924F0055A930 /* Sources */,
 				23AEDC792B49924F0055A930 /* Frameworks */,
 				23AEDC7A2B49924F0055A930 /* Resources */,
+				2391A14E2E48CC6B001200C6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2391A14D2E48CC6B001200C6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				239197042E47E268001200C6 /* FinancesWidget */,
-				239197672E47E271001200C6 /* FinancesCore */,
+				239197672E47E271001200C6 /* FinancesAppCore */,
+				2391A1152E48C999001200C6 /* FinancesAppIntents */,
 			);
 			name = FinancesWidgetExtension;
 			packageProductDependencies = (
 				23AEDCD52B49EFDD0055A930 /* CurrencyKit */,
 				23FC957A2B957DDB006A91EB /* AppUI */,
 				236100F72C970B89002F6F7F /* FoundationExtension */,
-				2391A1032E48C05C001200C6 /* Algorithms */,
+				2391A1132E48C925001200C6 /* Algorithms */,
 			);
 			productName = FinancesWidgetExtension;
 			productReference = 23AEDC7C2B49924F0055A930 /* FinancesWidgetExtension.appex */;
@@ -889,15 +900,20 @@
 			target = 2359B4242952039800593AA9 /* Finances */;
 			targetProxy = 2391A0112E488587001200C6 /* PBXContainerItemProxy */;
 		};
-		2391A0172E488587001200C6 /* PBXTargetDependency */ = {
+		2391A1432E48CC62001200C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2391A0022E488587001200C6 /* FinancesCore */;
-			targetProxy = 2391A0162E488587001200C6 /* PBXContainerItemProxy */;
+			targetProxy = 2391A1422E48CC62001200C6 /* PBXContainerItemProxy */;
 		};
-		2391A0D02E488B58001200C6 /* PBXTargetDependency */ = {
+		2391A1482E48CC67001200C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2391A0022E488587001200C6 /* FinancesCore */;
-			targetProxy = 2391A0CF2E488B58001200C6 /* PBXContainerItemProxy */;
+			targetProxy = 2391A1472E48CC67001200C6 /* PBXContainerItemProxy */;
+		};
+		2391A14D2E48CC6B001200C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2391A0022E488587001200C6 /* FinancesCore */;
+			targetProxy = 2391A14C2E48CC6B001200C6 /* PBXContainerItemProxy */;
 		};
 		23AEDC8B2B4992510055A930 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1764,12 +1780,12 @@
 			package = 2391A0FB2E48BFE9001200C6 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
 		};
-		2391A1032E48C05C001200C6 /* Algorithms */ = {
+		2391A1052E48C064001200C6 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2391A0FB2E48BFE9001200C6 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
 		};
-		2391A1052E48C064001200C6 /* Algorithms */ = {
+		2391A1132E48C925001200C6 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2391A0FB2E48BFE9001200C6 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;

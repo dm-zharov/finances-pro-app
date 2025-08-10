@@ -10,6 +10,7 @@ import SwiftData
 import OSLog
 import CurrencyKit
 import FoundationExtension
+import FinancesCore
 
 @MainActor
 struct ContentView: View {
