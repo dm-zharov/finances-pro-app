@@ -18,39 +18,38 @@ struct StatusModifier: ViewModifier {
     let description: Text?
     
     func body(content: Content) -> some View {
-        #if os(iOS)
-        content
-            .toolbar {
-                ToolbarItemGroup(placement: .status) {
-                    status
-                        .font(.caption)
-                }
+        if #available(iOS 26.0, macOS 15.0, *) {
+            switch placement {
+            case .automatic:
+                content
+                    .navigationSubtitle(title)
+            case .bottomBar:
+                #if os(iOS)
+                content
+                    .toolbar {
+                        ToolbarItemGroup(placement: .status) {
+                            title
+                                .font(.caption)
+                        }
+                    }
+                #else
+                content
+                    .safeAreaInset(edge: .bottom) {
+                        title
+                            .font(.subheadline)
+                            .padding(.vertical, 12.0)
+                    }
+                #endif
             }
-        #else
-        switch placement {
-        case .automatic:
+        } else {
             content
-                .navigationSubtitle(description ?? title)
-        case .bottomBar:
-            content
-                .safeAreaInset(edge: .bottom) {
-                    status
-                        .font(.subheadline)
-                        .padding(.vertical, 12.0)
+                .toolbar {
+                    ToolbarItemGroup(placement: .status) {
+                        title
+                            .font(.caption)
+                    }
                 }
         }
-        #endif
-    }
-    
-    var status: some View {
-        VStack {
-            title
-            if let description = description {
-                description
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .imageScale(.small)
     }
     
     init(_ title: Text, placement: StatusPlacement, description: Text? = nil) {
