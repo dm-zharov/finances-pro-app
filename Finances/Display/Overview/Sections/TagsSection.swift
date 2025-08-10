@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import AppUI
 
 #if os(iOS)
 private extension UIColor {

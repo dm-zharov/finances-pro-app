@@ -27,6 +27,9 @@
 		2391A0B32E488672001200C6 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A0B22E488672001200C6 /* OrderedCollections */; };
 		2391A0CD2E488B58001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
 		2391A0CE2E488B58001200C6 /* FinancesCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2391A0FD2E48BFE9001200C6 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A0FC2E48BFE9001200C6 /* Algorithms */; };
+		2391A1042E48C05C001200C6 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A1032E48C05C001200C6 /* Algorithms */; };
+		2391A1062E48C064001200C6 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A1052E48C064001200C6 /* Algorithms */; };
 		23998D4C2B872BE5009DACB9 /* SwiftSecurity in Frameworks */ = {isa = PBXBuildFile; productRef = 23998D4B2B872BE5009DACB9 /* SwiftSecurity */; };
 		2399F5152B163214006DD9F6 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 2399F5142B163214006DD9F6 /* SwiftCSV */; };
 		23AE5CFD2BBD010600EB59EF /* HapticFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 23AE5CFC2BBD010600EB59EF /* HapticFeedback */; };
@@ -258,6 +261,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2391A1062E48C064001200C6 /* Algorithms in Frameworks */,
 				23574D112B9DC53200B9B73D /* CurrencyKit in Frameworks */,
 				23574D132B9DC54500B9B73D /* AppUI in Frameworks */,
 				23574D2B2B9DDFF800B9B73D /* OrderedCollections in Frameworks */,
@@ -287,6 +291,7 @@
 				23AE5CFD2BBD010600EB59EF /* HapticFeedback in Frameworks */,
 				23AEDCB22B49A27D0055A930 /* CurrencyKit in Frameworks */,
 				2316106C2AEE636500C269D8 /* KeyboardKit in Frameworks */,
+				2391A0FD2E48BFE9001200C6 /* Algorithms in Frameworks */,
 				2334C23A2B9593BE002959F2 /* SwiftAuthn in Frameworks */,
 				2359B460295205FF00593AA9 /* CKNetworking in Frameworks */,
 				23DB9CFB2C90727F0098B17C /* Expression in Frameworks */,
@@ -338,6 +343,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2391A1042E48C05C001200C6 /* Algorithms in Frameworks */,
 				23AEDCD62B49EFDD0055A930 /* CurrencyKit in Frameworks */,
 				236100F82C970B89002F6F7F /* FoundationExtension in Frameworks */,
 				23FC957B2B957DDB006A91EB /* AppUI in Frameworks */,
@@ -429,6 +435,7 @@
 				23574D122B9DC54500B9B73D /* AppUI */,
 				23574D2A2B9DDFF800B9B73D /* OrderedCollections */,
 				236100F92C970B8F002F6F7F /* FoundationExtension */,
+				2391A1052E48C064001200C6 /* Algorithms */,
 			);
 			productName = "FinancesWatchApp Watch App";
 			productReference = 23574CC22B9DC14700B9B73D /* FinancesWatchApp.app */;
@@ -512,6 +519,7 @@
 				23AE5CFC2BBD010600EB59EF /* HapticFeedback */,
 				23DB9CFA2C90727F0098B17C /* Expression */,
 				236100F52C970B81002F6F7F /* FoundationExtension */,
+				2391A0FC2E48BFE9001200C6 /* Algorithms */,
 			);
 			productName = Money;
 			productReference = 2359B4252952039800593AA9 /* Finances.app */;
@@ -628,6 +636,7 @@
 				23AEDCD52B49EFDD0055A930 /* CurrencyKit */,
 				23FC957A2B957DDB006A91EB /* AppUI */,
 				236100F72C970B89002F6F7F /* FoundationExtension */,
+				2391A1032E48C05C001200C6 /* Algorithms */,
 			);
 			productName = FinancesWidgetExtension;
 			productReference = 23AEDC7C2B49924F0055A930 /* FinancesWidgetExtension.appex */;
@@ -698,6 +707,7 @@
 				23FC957E2B958384006A91EB /* XCLocalSwiftPackageReference "../swift-authn" */,
 				23AE5CFB2BBD010600EB59EF /* XCLocalSwiftPackageReference "../haptic-feedback" */,
 				23DB9CF92C90727F0098B17C /* XCRemoteSwiftPackageReference "Expression" */,
+				2391A0FB2E48BFE9001200C6 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 2359B4262952039800593AA9 /* Products */;
 			projectDirPath = "";
@@ -1638,6 +1648,14 @@
 				minimumVersion = 1.0.1;
 			};
 		};
+		2391A0FB2E48BFE9001200C6 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
 		23998D4A2B872BC7009DACB9 /* XCRemoteSwiftPackageReference "swift-security" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dm-zharov/swift-security.git";
@@ -1740,6 +1758,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23F252FE2AF3BE950020FCE3 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		2391A0FC2E48BFE9001200C6 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2391A0FB2E48BFE9001200C6 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		2391A1032E48C05C001200C6 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2391A0FB2E48BFE9001200C6 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		2391A1052E48C064001200C6 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2391A0FB2E48BFE9001200C6 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 		23998D4B2B872BE5009DACB9 /* SwiftSecurity */ = {
 			isa = XCSwiftPackageProductDependency;

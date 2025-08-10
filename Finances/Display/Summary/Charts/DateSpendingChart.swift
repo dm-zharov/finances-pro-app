@@ -8,8 +8,8 @@
 import SwiftUI
 import Charts
 import CurrencyKit
+import Algorithms
 import FoundationExtension
-import AppUI
 import AppUI
 
 struct DateSpendingChart<Header>: View where Header: View {
@@ -21,7 +21,7 @@ struct DateSpendingChart<Header>: View where Header: View {
     @Environment(\.currency) private var currency
     @Environment(\.calendar) private var calendar
     
-    let data: [DateAmount]
+    let data: [AmountEntry<Date>]
     let header: Header
     
     @State private var selection: Date?
@@ -68,10 +68,10 @@ struct DateSpendingChart<Header>: View where Header: View {
         }
     }
     
-    func bar(for element: DateAmount) -> some ChartContent {
+    func bar(for element: AmountEntry<Date>) -> some ChartContent {
         BarMark(
             // Create one bar for every 24 hours.
-            x: .value("Date", element.date, unit: granularity),
+            x: .value("Date", element.id, unit: granularity),
             y: .value("Amount", element.amount.magnitude)
         )
     }
@@ -82,11 +82,11 @@ struct DateSpendingChart<Header>: View where Header: View {
     
     var chart: some View {
         Chart {
-            ForEach(data, id: \.date) { element in
+            ForEach(data) { element in
                 if let selection {
                     bar(for: element)
                         .foregroundStyle(
-                            selection == element.date ? accentStyle : AnyShapeStyle(Color.ui(.placeholderText))
+                            selection == element.id ? accentStyle : AnyShapeStyle(Color.ui(.placeholderText))
                         )
                 } else {
                     bar(for: element)
@@ -172,7 +172,7 @@ struct DateSpendingChart<Header>: View where Header: View {
                                 // Get the value from location.
                                 if !data.isEmpty, let date: Date = proxy.value(atX: location.x) {
                                     let roundedDate = calendar.startOf(granularity, for: date)!
-                                    selection = data.map(\.date).nearest(for: roundedDate)
+                                    selection = data.map(\.date).partitioning(where: { $0 >= roundedDate })
                                 }
                             }
                             .onEnded { value in
@@ -250,12 +250,12 @@ struct DateSpendingChart<Header>: View where Header: View {
         .chartLegend(.hidden)
     }
     
-    init(data: [DateAmount], @ViewBuilder header: @escaping () -> Header) {
+    init(data: [AmountEntry<Date>], @ViewBuilder header: @escaping () -> Header) {
         self.data = data
         self.header = header()
     }
     
-    init(data: [DateAmount]) where Header == EmptyView {
+    init(data: [AmountEntry<Date>]) where Header == EmptyView {
         self.data = data
         self.header = EmptyView()
     }

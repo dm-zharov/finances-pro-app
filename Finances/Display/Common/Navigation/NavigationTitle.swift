@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppUI
 
 enum NavigationTitleStyle {
     case `default`

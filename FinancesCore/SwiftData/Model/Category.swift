@@ -62,7 +62,7 @@ class Category: Identifiable {
     /// Transaction list associated with the category.
     @Relationship(deleteRule: .nullify)
     var transactions: [Transaction]? = []
-    #if BudgetFeature
+    #if BUDGETS
     @Relationship(deleteRule: .nullify)
     var budgets: [Budget]? = []
     #endif

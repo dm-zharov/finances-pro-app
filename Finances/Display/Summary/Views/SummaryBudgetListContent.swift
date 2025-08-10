@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 import CurrencyKit
 
-#if BudgetFeature
+#if BUDGETS
 
 struct BudgetItemRow: View {
     @Environment(\.currency) private var currency

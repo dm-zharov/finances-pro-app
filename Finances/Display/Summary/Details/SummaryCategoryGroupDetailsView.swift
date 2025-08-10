@@ -17,7 +17,7 @@ struct SummaryCategoryGroupDetailsView: View {
     
     let categoryGroup: CategoryGroup
     
-    @State private var data: [DateAmount] = []
+    @State private var data: [AmountEntry<Date>] = []
     
     var body: some View {
         VStack {
@@ -89,11 +89,11 @@ extension SummaryCategoryGroupDetailsView: SummaryDetailsView {
         let categoryIDs: [Category.ExternalID]
     }
     
-    typealias Response = [DateAmount]
+    typealias Response = [AmountEntry<Date>]
 
     nonisolated func fetch(with request: Request) async -> Response {
         do {
-            let data = try await withThrowingTaskGroup(of: [DateAmount].self) { taskGroup in
+            let data = try await withThrowingTaskGroup(of: [AmountEntry<Date>].self) { taskGroup in
                 for categoryID in request.categoryIDs {
                     let predicate = TransactionQuery.predicate(
                         searchDateInterval: request.dateInterval,
@@ -108,7 +108,7 @@ extension SummaryCategoryGroupDetailsView: SummaryDetailsView {
                     }
                 }
                 
-                var result: [DateAmount] = []
+                var result: [AmountEntry<Date>] = []
                 for try await data in taskGroup {
                     result.append(contentsOf: data)
                 }

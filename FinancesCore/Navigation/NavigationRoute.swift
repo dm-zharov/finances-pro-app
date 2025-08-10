@@ -14,7 +14,7 @@ enum NavigationRoute: Hashable, Codable, Sendable {
     case category(id: Category.ExternalID)
     case categoryGroup(id: CategoryGroup.ExternalID)
     case merchant(id: Merchant.ExternalID)
-    #if BudgetFeature
+    #if BUDGETS
     case budget(id: Budget.ExternalID)
     #endif
     case transactions(query: TransactionQuery = .defaultValue)
@@ -36,7 +36,7 @@ extension NavigationRoute {
             path = "summary/categoryGroup?id=\(categoryGroupID.entityIdentifierString)"
         case .merchant(id: let merchantID):
             path = "summary/merchant?id=\(merchantID.entityIdentifierString)"
-        #if BudgetFeature
+        #if BUDGETS
         case .budget(let budgetID):
             path = "summary/budget?=id\(budgetID.entityIdentifierString)"
         #endif

@@ -14,10 +14,10 @@ import FoundationExtension
 struct SummaryItemRow<TotalValueLabel>: View where TotalValueLabel: View {
     @Environment(\.currency) private var currency
     
-    let element: CategoryAmount
+    let element: AmountEntry<String>
     let total: Decimal
 
-    let symbolName: SymbolName
+    let symbolName: String
     let color: Color
     
     let totalValueLabel: TotalValueLabel
@@ -27,7 +27,7 @@ struct SummaryItemRow<TotalValueLabel>: View where TotalValueLabel: View {
         let _ = Self._printChanges()
 #endif
         HStack(spacing: 12.0) {
-            Image(systemName: symbolName.rawValue)
+            Image(systemName: symbolName)
                 .symbolVariant(.circle.fill)
                 .symbolRenderingMode(.palette)
                 .font(.title2)
@@ -36,7 +36,7 @@ struct SummaryItemRow<TotalValueLabel>: View where TotalValueLabel: View {
             
             VStack(spacing: 4.0) {
                 HStack {
-                    Text(element.category)
+                    Text(element.name)
                     
                     Spacer()
                     
@@ -62,9 +62,9 @@ struct SummaryItemRow<TotalValueLabel>: View where TotalValueLabel: View {
     }
     
     init(
-        _ element: CategoryAmount,
+        _ element: AmountEntry<String>,
         total: Decimal,
-        symbolName: SymbolName,
+        symbolName: String,
         color: Color,
         @ViewBuilder totalValueLabel: @escaping () -> TotalValueLabel
     ) {
@@ -76,9 +76,9 @@ struct SummaryItemRow<TotalValueLabel>: View where TotalValueLabel: View {
     }
     
     init(
-        _ element: CategoryAmount,
+        _ element: AmountEntry<String>,
         total: Decimal,
-        symbolName: SymbolName,
+        symbolName: String,
         color: Color
     ) where TotalValueLabel == Text {
         self.element = element

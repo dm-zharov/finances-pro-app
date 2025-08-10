@@ -27,7 +27,7 @@ actor ArithmeticActor: ModelActor {
     func sum(
         predicate: Predicate<Transaction>,
         in currency: Currency
-    ) throws -> [CategoryAmount] {
+    ) throws -> [AmountEntry<String>] {
         #if DEBUG
         dispatchPrecondition(condition: .notOnQueue(.main))
         #endif
@@ -42,7 +42,7 @@ actor ArithmeticActor: ModelActor {
         }.mapValues { transactions in
             amount(for: transactions, in: currency)
         }.map { category, amount in
-            CategoryAmount(category: category, amount: amount)
+            AmountEntry(id: category, amount: amount)
         }.sorted(by: \.amount)
     }
 
@@ -50,7 +50,7 @@ actor ArithmeticActor: ModelActor {
         predicate: Predicate<Transaction>,
         granularity: Calendar.Component = .day,
         in currency: Currency
-    ) throws -> [DateAmount] {
+    ) throws -> [AmountEntry<Date>] {
         #if DEBUG
         dispatchPrecondition(condition: .notOnQueue(.main))
         #endif
@@ -91,7 +91,7 @@ actor ArithmeticActor: ModelActor {
         }
 
         return dictionary.map { date, amount in
-            DateAmount(date: date, amount: amount)
+            AmountEntry(id: date, amount: amount)
         }.sorted(by: \.date)
     }
 }
@@ -138,20 +138,4 @@ extension Sequence where Element: AdditiveArithmetic {
     public func sum() -> Element {
         reduce(.zero, +)
     }
-}
-
-public struct DateAmount: Codable, Hashable, Sendable {
-    /// Date Group.
-    public let date: Date
-    /// Amount.
-    public let amount: Decimal
-    
-    public init(date: Date, amount: Decimal) {
-        self.date = date
-        self.amount = amount
-    }
-}
-
-extension DateAmount: Identifiable {
-    public var id: Date { date }
 }

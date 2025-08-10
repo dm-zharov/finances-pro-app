@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppUI
 
 private struct ConfirmationButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled

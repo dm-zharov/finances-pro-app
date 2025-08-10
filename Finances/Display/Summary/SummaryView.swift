@@ -20,18 +20,18 @@ struct SummaryView: View {
     @Environment(\.currency) private var currency
     @Environment(\.dateInterval) private var dateInterval
     
-    @State private var data: [CategoryAmount] = [] {
+    @State private var data: [AmountEntry<String>] = [] {
         didSet {
             isLoading = false
         }
     }
-    var visibleData: [CategoryAmount] {
+    var visibleData: [AmountEntry<String>] {
         let visibleCategories = visibleCategories
         return data.filter { element in
             if element.isUncategorized {
                 return showIncome == (element.amount > .zero)
             } else {
-                return visibleCategories.contains(where: { category in category.name == element.category })
+                return visibleCategories.contains(where: { category in category.name == element.name })
             }
         }.sorted(by: \.amount, order: .forward)
     }
@@ -114,7 +114,7 @@ struct SummaryView: View {
             shimmers
                 .listRowInsets(.init(top: .zero, leading: 16, bottom: .zero, trailing: 16))
             
-            #if BudgetFeature
+            #if BUDGETS
             if !showIncome {
                 limits
                     .listRowInsets(.init(top: .zero, leading: 16, bottom: .zero, trailing: 16))
@@ -195,7 +195,7 @@ struct SummaryView: View {
         }
     }
     
-    #if BudgetFeature
+    #if BUDGETS
     var limits: some View {
         SummaryBudgetListContent()
     }
@@ -226,7 +226,7 @@ private extension SummaryView {
         let dateInterval: DateInterval
     }
     
-    typealias Response = [CategoryAmount]
+    typealias Response = [AmountEntry<String>]
 
     nonisolated func fetch(with request: Request) async -> Response {
         do {
@@ -252,14 +252,14 @@ private extension SummaryView {
     .modelContainer(previewContainer)
 }
 
-extension CategoryAmount {
+extension AmountEntry<String> {
     var isUncategorized: Bool {
-        category == String(localized: "Uncategorized")
+        name == String(localized: "Uncategorized")
     }
 }
 
-extension Array where Element == CategoryAmount {
-    static var loading: [CategoryAmount] {
-        [CategoryAmount(category: String(localized: "Calculating..."), amount: .zero)]
+private extension Array where Element == AmountEntry<String> {
+    static var loading: [AmountEntry<String>] {
+        [AmountEntry<String>(id: String(localized: "Calculating..."), amount: .zero)]
     }
 }

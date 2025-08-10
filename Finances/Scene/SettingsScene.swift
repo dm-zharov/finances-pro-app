@@ -8,6 +8,7 @@
 #if os(macOS)
 import SwiftUI
 import SwiftAuthn
+import SwiftData
 
 struct SettingsScene: Scene {
     @Environment(BiometricAuthenticationController.self) private var authenticationController

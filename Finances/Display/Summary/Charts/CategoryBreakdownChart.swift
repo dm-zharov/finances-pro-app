@@ -9,13 +9,14 @@ import SwiftUI
 import Charts
 import FoundationExtension
 import CurrencyKit
+import AppUI
 
 struct CategoryBreakdownChart: View {
     @Environment(\.currency) private var currency
     @Environment(\.dateInterval) private var dateInterval
     @Environment(\.calendar) private var calendar
     
-    let data: [CategoryAmount]
+    let data: [AmountEntry<String>]
     let colors: [String: Color]
 
     var body: some View {
@@ -43,12 +44,12 @@ struct CategoryBreakdownChart: View {
     }
 
     private var chart: some View {
-        Chart(data, id: \.category) { element in
+        Chart(data, id: \.name) { element in
             Plot {
                 BarMark(
                     x: .value("Category Amount", element.amount.magnitude)
                 )
-                .foregroundStyle(by: .value("Category Name", element.category))
+                .foregroundStyle(by: .value("Category Name", element.name))
             }
         }
         .chartForegroundStyleScale(mapping: color(for:))
@@ -65,8 +66,8 @@ struct CategoryBreakdownChart: View {
         .chartXAxis(.hidden)
         .chartLegend(spacing: 8.0) {
             OverflowStack(spacing: 8.0) {
-                ForEach(data.prefix(5), id: \.category) { element in
-                    legend(for: element.category)
+                ForEach(data.prefix(5)) { element in
+                    legend(for: element.name)
                 }
                 if data.count > 5 {
                     legend(for: String(localized: "Others"))
@@ -92,19 +93,11 @@ struct CategoryBreakdownChart: View {
         return colors[category] ?? .gray
     }
     
-    init(data: [CategoryAmount], colors: [String : Color]) {
+    init(data: [AmountEntry<String>], colors: [String : Color]) {
         self.data = data.isEmpty ? [.unavailable] : data
         self.colors = colors
     }
 }
-
-private extension CategoryAmount {
-    static let unavailable = CategoryAmount(
-        category: String(localized: "No Data"),
-        amount: .zero
-    )
-}
-
 
 #Preview {
     List {

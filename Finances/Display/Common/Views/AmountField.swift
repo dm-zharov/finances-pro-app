@@ -9,8 +9,11 @@ import SwiftUI
 import FoundationExtension
 import CurrencyKit
 import AppUI
-import KeyboardKit
 import Expression
+
+#if os(iOS)
+import KeyboardKit
+#endif
 
 enum Operator: String, CaseIterable {
     case add = "+"

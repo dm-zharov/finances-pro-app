@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Expression
 
 enum ExpressionFormatterError: Error {
     case parsingError

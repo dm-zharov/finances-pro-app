@@ -15,16 +15,16 @@ struct SummaryBreakdownContent: View {
     @Query private var categoryGroups: [CategoryGroup]
     @Query private var categories: [Category]
     
-    private let plain: [CategoryAmount]
-    private var grouped: [CategoryAmount] {
+    private let plain: [AmountEntry<String>]
+    private var grouped: [AmountEntry<String>] {
         plain.grouped(by: { element -> String in
-            if let category = categories.first(where: { category in category.name == element.category }) {
+            if let category = categories.first(where: { category in category.name == element.id }) {
                 return category.group?.name ?? category.name
             } else {
                 return String(localized: "Uncategorized")
             }
         }).map { group, elements in
-            CategoryAmount(category: group, amount: elements.map(\.amount).sum())
+            AmountEntry<String>(id: group, amount: elements.sum())
         }.sorted(by: \.amount)
     }
     
@@ -41,50 +41,48 @@ struct SummaryBreakdownContent: View {
         let _ = Self._printChanges()
 #endif
         Section {
-            ForEach(
-                showGroups ? grouped.prefix(showLimit) : plain.prefix(showLimit), id: \.category
-            ) { element in
-                if let category = categories.first(where: { category in category.name == element.category }) {
+            ForEach(showGroups ? grouped.prefix(showLimit) : plain.prefix(showLimit)) { element in
+                if let category = categories.first(where: { category in category.name == element.id }) {
                     #if os(iOS)
                     NavigationLink(route: .category(id: category.externalIdentifier)) {
                         SummaryItemRow(
                             element,
-                            total: plain.map(\.amount).sum(),
-                            symbolName: SymbolName(rawValue: category.symbolName),
+                            total: plain.sum(),
+                            symbolName: category.symbolName ?? SymbolName.defaultValue.rawValue,
                             color: Color(colorName: ColorName(rawValue: category.colorName))
                         )
                     }
                     #else
                     SummaryItemRow(
                         element,
-                        total: plain.map(\.amount).sum(),
-                        symbolName: SymbolName(rawValue: category.symbolName),
+                        total: plain.sum(),
+                        symbolName: category.symbolName ?? SymbolName.defaultValue.rawValue,
                         color: Color(colorName: ColorName(rawValue: category.colorName))
                     )
                     #endif
-                } else if let categoryGroup = categoryGroups.first(where: { categoryGroup in categoryGroup.name == element.category }) {
+                } else if let categoryGroup = categoryGroups.first(where: { categoryGroup in categoryGroup.name == element.id }) {
                     #if os(iOS)
                     NavigationLink(route: .categoryGroup(id: categoryGroup.externalIdentifier)) {
                         SummaryItemRow(
                             element,
-                            total: plain.map(\.amount).sum(),
-                            symbolName: SymbolName(rawValue: "rectangle.on.rectangle.circle.fill"),
+                            total: plain.sum(),
+                            symbolName: "rectangle.on.rectangle.circle.fill",
                             color: Color.accentColor
                         )
                     }
                     #else
                     SummaryItemRow(
                         element,
-                        total: plain.map(\.amount).sum(),
-                        symbolName: SymbolName(rawValue: "rectangle.on.rectangle.circle.fill"),
+                        total: plain.sum(),
+                        symbolName: "rectangle.on.rectangle.circle.fill",
                         color: Color.accentColor
                     )
                     #endif
                 } else  {
                     SummaryItemRow(
                         element,
-                        total: plain.map(\.amount).sum(),
-                        symbolName: .defaultValue,
+                        total: plain.sum(),
+                        symbolName: SymbolName.defaultValue.rawValue,
                         color: Color(colorName: ColorName.defaultValue)
                     )
                 }
@@ -99,7 +97,7 @@ struct SummaryBreakdownContent: View {
             }
         } header: {
             if categories.contains(where: { category in
-                category.group != nil && plain.contains(where: { $0.category == category.name })
+                category.group != nil && plain.contains(where: { $0.id == category.name })
             }) {
                 #if os(iOS)
                 HStack {
@@ -130,7 +128,7 @@ struct SummaryBreakdownContent: View {
         }
     }
     
-    init(data: [CategoryAmount]) {
+    init(data: [AmountEntry<String>]) {
         self.plain = data
     }
 }

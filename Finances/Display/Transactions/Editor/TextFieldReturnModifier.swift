@@ -5,8 +5,10 @@
 //  Created by Dmitriy Zharov on 31.10.2023.
 //
 
+#if os(iOS)
 import SwiftUI
 import SwiftUIIntrospect
+#endif
 
 #if os(iOS)
 class TextFieldDelegateProxy: NSObject, UITextFieldDelegate {

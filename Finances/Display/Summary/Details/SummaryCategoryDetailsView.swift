@@ -18,7 +18,7 @@ struct SummaryCategoryDetailsView: View {
     
     let category: Category
     
-    @State private var data: [DateAmount] = []
+    @State private var data: [AmountEntry<Date>] = []
     @State private var selection: NavigationRoute?
     
     var body: some View {
@@ -66,7 +66,7 @@ struct SummaryCategoryDetailsView: View {
                     }
                 }
                 
-                #if BudgetFeature
+                #if BUDGETS
                 if let budgets = category.budgets, !budgets.isEmpty {
                     Section("Budgets") {
                         ForEach(budgets) { budget in
@@ -131,7 +131,7 @@ extension SummaryCategoryDetailsView: SummaryDetailsView {
         let categoryID: Category.ExternalID
     }
     
-    typealias Response = [DateAmount]
+    typealias Response = [AmountEntry<Date>]
 
     nonisolated func fetch(with request: Request) async -> Response {
         let predicate = TransactionQuery.predicate(

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import AppUI
 
 struct InlinePredictionField<Label> where Label: View {
     @Environment(\.customKeyboardSubmit) private var customKeyboardSubmit

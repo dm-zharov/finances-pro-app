@@ -163,7 +163,7 @@ extension ContentView {
             if let merchant = modelContext.existingModel(Merchant.self, with: merchantID) {
                 SummaryMerchantDetailsView(merchant)
             }
-        #if BudgetFeature
+        #if BUDGETS
         case let .budget(id: budgetID):
             if let budget = modelContext.existingModel(Budget.self, with: budgetID) {
                 BudgetDetailsView(budget)

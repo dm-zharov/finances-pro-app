@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 import CurrencyKit
 
 struct SummaryPreview: View {
@@ -20,7 +19,7 @@ struct SummaryPreview: View {
     @Environment(\.currency) private var currency
     @Environment(\.dateInterval) private var dateInterval
     
-    @State private var data: [DateAmount] = []
+    @State private var data: [AmountEntry<Date>] = []
     @State private var visibleDateInterval: DateInterval = .defaultValue
 
     var body: some View {
@@ -70,7 +69,7 @@ extension SummaryPreview {
     }
     
     struct Response: Sendable {
-        let data: [DateAmount]
+        let data: [AmountEntry<Date>]
         let visibleDateInterval: DateInterval
     }
 

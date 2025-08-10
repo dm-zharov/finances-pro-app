@@ -10,6 +10,8 @@ import SwiftData
 import AppUI
 import CurrencyKit
 import HapticFeedback
+import AppIntents
+import FoundationExtension
 
 #if os(iOS)
 import SwiftUIIntrospect

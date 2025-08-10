@@ -17,7 +17,7 @@ struct SummaryMerchantDetailsView: View {
     
     let payee: Merchant
     
-    @State private var data: [DateAmount] = []
+    @State private var data: [AmountEntry<Date>] = []
     @State private var selection: NavigationRoute?
     
     var body: some View {
@@ -91,7 +91,7 @@ extension SummaryMerchantDetailsView: SummaryDetailsView {
         let merchantID: Merchant.ExternalID
     }
     
-    typealias Response = [DateAmount]
+    typealias Response = [AmountEntry<Date>]
 
     nonisolated func fetch(with request: Request) async -> Response {
         let predicate = TransactionQuery.predicate(

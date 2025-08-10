@@ -7,7 +7,7 @@
 
 // TODO: Budgeting
 
-#if BudgetFeature
+#if BUDGETS
 import Foundation
 import SwiftUI
 
