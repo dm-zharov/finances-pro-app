@@ -1,0 +1,132 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Add one on your iPhone." : {
+
+    },
+    "Add transaction" : {
+
+    },
+    "Amount" : {
+
+    },
+    "Asset" : {
+
+    },
+    "Assets" : {
+
+    },
+    "Banknotes, coins" : {
+
+    },
+    "Brokerage Account" : {
+
+    },
+    "Card, digital wallet" : {
+
+    },
+    "Category" : {
+
+    },
+    "Checking Account" : {
+
+    },
+    "Credit" : {
+
+    },
+    "Currency" : {
+
+    },
+    "Currency Code" : {
+
+    },
+    "Date" : {
+
+    },
+    "Day" : {
+
+    },
+    "Estate, goods, etc." : {
+
+    },
+    "Excluded" : {
+      "comment" : "Type of category"
+    },
+    "Fixed-rate over a specified term" : {
+
+    },
+    "Flexible borrowing" : {
+
+    },
+    "Grows over time" : {
+
+    },
+    "Income" : {
+      "comment" : "Type of category"
+    },
+    "Investments" : {
+
+    },
+    "Kind" : {
+
+    },
+    "Kind of Asset" : {
+
+    },
+    "Kind of Category" : {
+
+    },
+    "Kind of Liability" : {
+
+    },
+    "Loan" : {
+
+    },
+    "Month" : {
+
+    },
+    "No Assets" : {
+
+    },
+    "No Payee" : {
+
+    },
+    "No Transactions" : {
+
+    },
+    "None" : {
+
+    },
+    "Other" : {
+
+    },
+    "Payee" : {
+
+    },
+    "Physical Cash" : {
+
+    },
+    "Savings Account" : {
+
+    },
+    "Transactions" : {
+
+    },
+    "Unaccounted" : {
+
+    },
+    "Uncategorized" : {
+
+    },
+    "Unknown" : {
+
+    },
+    "Week" : {
+
+    },
+    "Year" : {
+
+    }
+  },
+  "version" : "1.0"
+}
