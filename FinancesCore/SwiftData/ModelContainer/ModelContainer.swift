@@ -11,7 +11,7 @@ import SwiftData
 // MARK: - Default
 
 extension ModelContainer {
-    static let `default`: ModelContainer = {
+    public static let `default`: ModelContainer = {
         do {
             return try ModelContainer(for: .default)
         } catch {
@@ -19,4 +19,3 @@ extension ModelContainer {
         }
     }()
 }
-

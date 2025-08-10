@@ -195,9 +195,3 @@ extension FloatingPointSign {
         }
     }
 }
-
-extension CharacterSet {
-    func containsUnicodeScalars(of character: Character) -> Bool {
-        character.unicodeScalars.allSatisfy(contains(_:))
-    }
-}

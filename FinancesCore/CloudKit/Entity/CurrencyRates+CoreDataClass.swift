@@ -45,7 +45,7 @@ extension CurrencyRates {
                 
                 return Dictionary(
                     uniqueKeysWithValues: json.compactMap({ dateString, rates in
-                        if let date = try? Date(dateString, strategy: .iso8601.day().month().year()) {
+                        if let date = try? Date(dateString, strategy: .iso8601.year().month().day()) {
                             return (date, rates)
                         } else {
                             return nil

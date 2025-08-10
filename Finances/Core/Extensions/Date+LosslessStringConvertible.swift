@@ -7,11 +7,11 @@
 
 import Foundation
 
-extension Date: LosslessStringConvertible {
+extension Date: @retroactive LosslessStringConvertible {
     public init?(_ description: String) {
         if let iso8601Date = try? Date(description, strategy: .iso8601) {
             self = iso8601Date
-        } else if let iso8601CalendarDate = try? Date(description, strategy: .iso8601.calendar()) {
+        } else if let iso8601CalendarDate = try? Date(description, strategy: .iso8601.day().month().year()) {
             self = iso8601CalendarDate
         } else {
             return nil
