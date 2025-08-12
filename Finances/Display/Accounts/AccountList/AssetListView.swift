@@ -79,7 +79,7 @@ struct AssetListView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .cancellationAction) {
-                Button("Cancel") {
+                CancelButton {
                     dismiss()
                 }
             }
@@ -111,7 +111,7 @@ struct AssetListView: View {
             #endif
             
             ToolbarItemGroup(placement: .toolbar) {
-                ToolbarSpacer()
+                _ToolbarSpacer()
 
                 Button("Add Asset") {
                     showAccountConfigurator.toggle()

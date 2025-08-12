@@ -20,21 +20,11 @@ struct TransactionButton: View {
             .disabled(assets.isEmpty)
     }
     
+    @ViewBuilder
     var button: some View {
 #if os(iOS)
-        Button {
-            action()
-        } label: {
-            if isQuick {
-                Image(systemName: "square.and.pencil")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.primary, .accent)
-            } else {
-                Image(systemName: "square.and.pencil")
-                    .foregroundStyle(.accent)
-            }
-        }
-        .buttonStyle(.plain)
+        Button("Add transaction", systemImage: "square.and.pencil", action: action)
+            .buttonStyle(.glassProminent)
 #else
         Button("Add transaction", systemImage: "square.and.pencil", action: action)
 #endif

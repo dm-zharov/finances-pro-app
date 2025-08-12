@@ -43,7 +43,7 @@ struct CategorySelectorView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
+                CancelButton {
                     dismiss()
                 }
             }
@@ -56,7 +56,7 @@ struct CategorySelectorView: View {
             
             ToolbarItemGroup(placement: .toolbar) {
                 if editMode.isEditing || categories.isEmpty {
-                    Spacer()
+                    _ToolbarSpacer()
                     Button("New Category") {
                         showCategoryEditor = Container<Category.ID>()
                     }

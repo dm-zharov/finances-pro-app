@@ -113,7 +113,7 @@ struct AssetSelectorView: View {
             
             ToolbarItemGroup(placement: .toolbar) {
                 if editMode.isEditing {
-                    ToolbarSpacer()
+                    _ToolbarSpacer()
                     Button("Add Asset") {
                         showAccountConfigurator.toggle()
                     }

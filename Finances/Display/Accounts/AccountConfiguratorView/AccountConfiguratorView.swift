@@ -74,7 +74,7 @@ struct AccountConfiguratorView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
+                CancelButton {
                     isPresented.toggle()
                 }
             }

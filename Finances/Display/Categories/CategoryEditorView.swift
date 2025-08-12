@@ -56,7 +56,7 @@ struct CategoryEditorView: View {
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 if showsCancel {
-                    Button("Cancel") {
+                    CancelButton {
                         dismiss()
                     }
                 }
@@ -101,6 +101,7 @@ struct CategoryEditorView: View {
                             .foregroundStyle(Color(colorName: representation.colorName))
                             .font(.title2)
                             .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
                             .padding(.horizontal, 12.0)
                     }
             }

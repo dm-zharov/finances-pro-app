@@ -86,7 +86,7 @@ struct CSVImportConfiguratorView: View {
             
             #if os(iOS)
             ToolbarItemGroup(placement: .bottomBar) {
-                ToolbarSpacer()
+                _ToolbarSpacer()
             }
             #endif
         }

@@ -138,7 +138,7 @@ struct TransactionListView: View {
             }
             
             ToolbarItemGroup(placement: .toolbar) {
-                ToolbarSpacer()
+                _ToolbarSpacer()
 
                 if query.searchAssetID != nil, viewStyle == .list, userInterfaceIdiom != .mac {
                     TransactionButton(isQuick: true) {

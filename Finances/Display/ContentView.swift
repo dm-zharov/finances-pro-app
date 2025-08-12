@@ -88,9 +88,10 @@ struct ContentView: View {
                         CalendarButton(selection: $dateInterval)
                     }
                     #endif
+
                     
+                    ToolbarSpacer(.flexible, placement: .toolbar)
                     ToolbarItemGroup(placement: .toolbar) {
-                        ToolbarSpacer()
                         TransactionButton {
                             showTransactionEditor.toggle()
                         }
@@ -135,7 +136,7 @@ struct ContentView: View {
         .navigationTitle(String.empty)
         .toolbar {
             ToolbarItemGroup(placement: .toolbar) {
-                ToolbarSpacer()
+                _ToolbarSpacer()
                 TransactionButton { }
             }
         }

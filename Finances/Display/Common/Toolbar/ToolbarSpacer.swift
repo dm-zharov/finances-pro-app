@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ToolbarSpacer: View {
-    var body: some View {
-        #if os(iOS)
-        Button(String.empty) { }
-            .hidden()
-        #else
-        Spacer()
-        #endif
-    }
-}
+ struct _ToolbarSpacer: View {
+     var body: some View {
+         #if os(iOS)
+         Button(String.empty) { }
+             .hidden()
+         #else
+         Spacer()
+         #endif
+     }
+ }
