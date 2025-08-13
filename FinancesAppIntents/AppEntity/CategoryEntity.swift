@@ -87,9 +87,9 @@ extension CategoryEntity {
 }
 
 extension CategoryEntity: AppEntity {
-    static var defaultQuery = CategoryEntityQuery()
+    static let defaultQuery = CategoryEntityQuery()
     
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Category"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Category"
     var displayRepresentation: AppIntents.DisplayRepresentation {
         let title = LocalizedStringResource(verbatim: name)
         let subtitle = LocalizedStringResource(verbatim: type.localizedDescription)

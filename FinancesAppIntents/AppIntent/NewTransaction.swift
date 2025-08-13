@@ -13,8 +13,8 @@ import CurrencyKit
 import WidgetKit
 
 struct NewTransaction: AppIntent {
-    static var title: LocalizedStringResource = "New Transaction"
-    static var openAppWhenRun: Bool = false
+    static let title: LocalizedStringResource = "New Transaction"
+    static let openAppWhenRun: Bool = false
     
     @Parameter(
         title: "Amount",

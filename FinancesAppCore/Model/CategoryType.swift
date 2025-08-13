@@ -36,7 +36,7 @@ extension CategoryType: CustomLocalizedStringConvertible {
 }
 
 extension CategoryType: AppEntity {
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Kind of Category"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Kind of Category"
     var displayRepresentation: DisplayRepresentation {
         DisplayRepresentation(
             title: LocalizedStringResource(verbatim: localizedDescription)

@@ -11,7 +11,7 @@ import SwiftData
 import FoundationExtension
 
 struct AssetListConfiguration: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "Assets Configuration"
+    static let title: LocalizedStringResource = "Assets Configuration"
 
     // An example configurable parameter.
     @Parameter(title: "Assets", size: [

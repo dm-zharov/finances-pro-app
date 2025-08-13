@@ -9,8 +9,8 @@ import AppIntents
 import SwiftData
 
 struct OpenAsset: AppIntent {
-    static var title: LocalizedStringResource = "Open Asset"
-    static var openAppWhenRun: Bool = true
+    static let title: LocalizedStringResource = "Open Asset"
+    static let openAppWhenRun: Bool = true
     
     @Parameter(title: "Asset")
     var asset: AssetEntity

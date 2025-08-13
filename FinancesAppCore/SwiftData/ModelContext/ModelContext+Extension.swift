@@ -107,5 +107,5 @@ extension ModelContext {
 }
 
 private extension ModelContainer {
-    static var _cache: Dictionary<String, PersistentIdentifier> = [:]
+    nonisolated(unsafe) static var _cache: Dictionary<String, PersistentIdentifier> = [:]
 }

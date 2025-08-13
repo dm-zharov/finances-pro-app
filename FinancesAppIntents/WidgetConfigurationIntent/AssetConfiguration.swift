@@ -11,9 +11,9 @@ import SwiftData
 import FoundationExtension
 
 struct AssetConfiguration: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "Asset Configuration"
-    static var description = IntentDescription("This is an example widget.")
-    static var authenticationPolicy: IntentAuthenticationPolicy = .alwaysAllowed
+    static let title: LocalizedStringResource = "Asset Configuration"
+    static let description = IntentDescription("This is an example widget.")
+    static let authenticationPolicy: IntentAuthenticationPolicy = .alwaysAllowed
 
     // An example configurable parameter.
     @Parameter(title: "Asset", optionsProvider: AssetConfiguration.AssetOptionsProvider())

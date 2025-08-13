@@ -18,7 +18,7 @@ final class CurrencyRatesStore: CurrencyRatesProvider {
     
     // MARK: - Properties
     
-    var dataSource: DataSource = [:]
+    nonisolated(unsafe) var dataSource: DataSource = [:]
     
     public func rate(for currency: Currency, relativeTo counter: Currency, on date: Date) -> Decimal {
         guard currency != counter else {

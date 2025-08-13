@@ -172,19 +172,18 @@ extension StoreQuery {
                     }
                 }
                 
-                transaction.tags = representation.tags.compactMap { identity -> Tag? in
-                    if !identity.isEmpty {
-                        if let tag = tagIDs[identity] {
-                            return tag
-                        } else {
-                            let tag = Tag.create(identity, modelContext: modelContext)
-                            tagIDs[identity] = tag
-                            return tag
-                        }
+                var tags: [Tag] = []
+                for identity in representation.tags {
+                    guard !identity.isEmpty else { continue }
+                    if let tag = tagIDs[identity] {
+                        tags.append(tag)
                     } else {
-                        return nil
+                        let tag = Tag.create(identity, modelContext: modelContext)
+                        tagIDs[identity] = tag
+                        tags.append(tag)
                     }
                 }
+                transaction.tags = tags
                 
                 transactionIDs[representation.id] = transaction; inserted.append(transaction)
             }
@@ -210,3 +209,4 @@ extension StoreQuery {
         return (transaction, nil)
     }
 }
+

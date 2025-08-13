@@ -10,5 +10,5 @@ import FoundationExtension
 
 extension UserDefaults {
     @available(iOSApplicationExtension, unavailable)
-    public static let shared: UserDefaults = SyncedDefaults(groupContainerIdentifier: Constants.AppGroup.id)
+    nonisolated(unsafe) public static let shared: UserDefaults = SyncedDefaults(groupContainerIdentifier: Constants.AppGroup.id)
 }
