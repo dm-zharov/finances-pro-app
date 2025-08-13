@@ -35,7 +35,6 @@ struct AmountText: View {
             return Text(1_000.formatted(.currency(currency)))
         }
         #endif
-
         if isCurrencyConversionEnabled, currencyCode != currency.identifier {
             return Text("\(Image(systemName: "arrow.left.arrow.right")) ").foregroundStyle(.accent) + Text(
                 (value / Currency(currencyCode).rate(relativeTo: currency, on: date)).formatted(.currency(currency))

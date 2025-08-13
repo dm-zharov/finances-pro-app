@@ -57,13 +57,10 @@ struct AssetListView: View {
                         }
                     }
                     .toolbar {
-                        ToolbarItemGroup(placement: .status) {
-                            VStack {
-                                Text("Balance")
-                                AmountText(assets.sum(in: currency), currencyCode: currency.identifier)
-                                    .foregroundStyle(.secondary)
-                            }
-                            .font(.caption)
+                        ToolbarItem(placement: .subtitle) {
+                            AmountText(assets.sum(in: currency), currencyCode: currency.identifier)
+                                .foregroundStyle(.secondary)
+                                .font(.caption)
                         }
                     }
                     .ignoresSafeArea(.keyboard, edges: .bottom)

@@ -143,9 +143,7 @@ struct AssetEditorView: View {
                 }
                 .disabled(!isReady || !representation.validate())
             }
-            ToolbarItem(placement: .status) {
-                Spacer()
-            }
+            ToolbarSpacer(.flexible, placement: .status)
         }
         .interactiveDismissDisabled(focusedField != nil)
         .preferredContentSize(minWidth: 500.0, minHeight: 420.0)
