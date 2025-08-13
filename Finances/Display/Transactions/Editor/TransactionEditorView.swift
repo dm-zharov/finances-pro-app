@@ -69,7 +69,7 @@ struct TransactionEditorView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .cancellationAction) {
-                Button("Cancel") {
+                CancelButton {
                     dismiss()
                 }
             }

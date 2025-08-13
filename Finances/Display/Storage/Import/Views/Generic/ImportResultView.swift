@@ -75,7 +75,7 @@ struct ImportResultView: View {
                     }
                 }
                 .interactiveDismissDisabled()
-                .status(Text("To Import"), description: Text(description))
+                .navigationSubtitle(Text("To Import · \(description)"))
             } else {
                 List {
                     if !duplicates.isEmpty {

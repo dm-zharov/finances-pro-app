@@ -121,7 +121,7 @@ extension CSVParseStrategy: ParseStrategy {
     }
 }
 
-extension FloatingPointSign: ExpressibleByStringLiteral {
+extension FloatingPointSign: @retroactive ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     
     public init(stringLiteral value: String) {
@@ -136,7 +136,7 @@ extension FloatingPointSign: ExpressibleByStringLiteral {
     }
 }
 
-extension FloatingPointSign: CustomStringConvertible {
+extension FloatingPointSign: @retroactive CustomStringConvertible {
     public var description: String {
         switch self {
         case .plus:
@@ -147,7 +147,7 @@ extension FloatingPointSign: CustomStringConvertible {
     }
 }
 
-extension FloatingPointSign: CustomLocalizedStringResourceConvertible {
+extension FloatingPointSign: @retroactive CustomLocalizedStringResourceConvertible {
     public var localizedStringResource: LocalizedStringResource {
         switch self {
         case .plus:

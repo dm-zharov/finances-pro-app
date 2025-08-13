@@ -151,7 +151,7 @@ struct CurrencySelectorItem: View {
                     .headerProminence(.standard)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
-                            Button("Cancel") {
+                            CancelButton {
                                 showCurrencyPicker.toggle()
                             }
                         }

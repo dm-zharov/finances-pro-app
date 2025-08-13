@@ -64,7 +64,7 @@ struct TagTransactionListView: View {
                         break
                     }
                 }
-                .status(Text("Entire Period"), description: Text("\(transactions.count) Transactions"))
+                .navigationSubtitle(Text("Entire Period · \(transactions.count) Transactions"))
             } else {
                 ProgressView()
                     .progressViewStyle(.circular)

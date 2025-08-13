@@ -64,7 +64,7 @@ struct TransactionListView: View {
             if !transactions.isEmpty || showQuickEditor {
                 ScrollViewReader { proxy in
                     list(transactions: transactions)
-                        .status(Text("\(transactions.count) Transactions"))
+                        .navigationSubtitle(Text("\(transactions.count) Transactions"))
                         .onChange(of: showQuickEditor) {
                             if showQuickEditor {
                                 proxy.scrollTo(quickEditorID, anchor: .top)

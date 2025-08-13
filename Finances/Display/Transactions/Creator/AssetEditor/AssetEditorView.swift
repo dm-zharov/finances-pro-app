@@ -124,7 +124,7 @@ struct AssetEditorView: View {
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 if let _ = asset {
-                    Button("Cancel") {
+                    CancelButton {
                         dismiss()
                     }
                 }

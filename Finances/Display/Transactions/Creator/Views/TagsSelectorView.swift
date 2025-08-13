@@ -70,7 +70,7 @@ struct TagsSelectorView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
+                CancelButton {
                     dismiss()
                 }
             }

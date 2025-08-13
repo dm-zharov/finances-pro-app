@@ -16,7 +16,7 @@ struct ConnectionStatusModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .status(Text(title), placement: .bottomBar, description: description.map { Text($0) })
+            .navigationSubtitle(Text(title))
             .onReceive(
                 NotificationCenter.default.publisher(
                     for: NSPersistentCloudKitContainer.eventChangedNotification, object: PersistentController.public

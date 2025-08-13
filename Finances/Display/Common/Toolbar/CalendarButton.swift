@@ -14,7 +14,7 @@ extension DatePeriod {
     static let `default`: DatePeriod = .month
 }
 
-extension DateInterval: DefaultValueProvidable {
+extension DateInterval: @retroactive DefaultValueProvidable {
     public static var defaultValue: DateInterval {
         let calendar = Calendar.current
         return calendar.dateInterval(

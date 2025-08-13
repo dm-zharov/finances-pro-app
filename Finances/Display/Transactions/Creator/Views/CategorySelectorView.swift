@@ -54,12 +54,11 @@ struct CategorySelectorView: View {
                 #endif
             }
             
-            ToolbarItemGroup(placement: .toolbar) {
-                if editMode.isEditing || categories.isEmpty {
-                    _ToolbarSpacer()
-                    Button("New Category") {
-                        showCategoryEditor = Container<Category.ID>()
-                    }
+
+            ToolbarSpacer(.flexible, placement: .toolbar)
+            ToolbarItem(placement: .toolbar) {
+                Button("New Category") {
+                    showCategoryEditor = Container<Category.ID>()
                 }
             }
         }

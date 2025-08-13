@@ -57,7 +57,7 @@ struct AssetSelectorView: View {
                 #if os(iOS)
                     .inlineMenuVisibility(editMode.isEditing)
                 #endif
-                if let _ = selection, !editMode.isEditing {
+                if !editMode.isEditing {
                     Button("Unaccounted") {
                         selection = .none; dismiss()
                     }
@@ -71,7 +71,7 @@ struct AssetSelectorView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .cancellationAction) {
-                Button("Cancel") {
+                CancelButton {
                     dismiss()
                 }
             }
@@ -111,12 +111,10 @@ struct AssetSelectorView: View {
             }
             #endif
             
-            ToolbarItemGroup(placement: .toolbar) {
-                if editMode.isEditing {
-                    _ToolbarSpacer()
-                    Button("Add Asset") {
-                        showAccountConfigurator.toggle()
-                    }
+            ToolbarSpacer(.flexible, placement: .toolbar)
+            ToolbarItem(placement: .toolbar) {
+                Button("Add Asset") {
+                    showAccountConfigurator.toggle()
                 }
             }
         }

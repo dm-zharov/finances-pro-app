@@ -110,9 +110,8 @@ struct AssetListView: View {
             }
             #endif
             
-            ToolbarItemGroup(placement: .toolbar) {
-                _ToolbarSpacer()
-
+            ToolbarSpacer(.flexible, placement: .toolbar)
+            ToolbarItem(placement: .toolbar) {
                 Button("Add Asset") {
                     showAccountConfigurator.toggle()
                 }
