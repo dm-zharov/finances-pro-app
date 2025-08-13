@@ -66,8 +66,8 @@ struct SummaryView: View {
         }
         .navigationTitle("Summary")
         .toolbar {
-            ToolbarItemGroup(placement: .toolbar) {
-                _ToolbarSpacer()
+            ToolbarSpacer(.flexible, placement: .toolbar)
+            ToolbarItem(placement: .toolbar) {
                 if categories.contains(where: { $0.isTransient == true }) {
                     Menu {
                         if showTransient {

@@ -135,8 +135,8 @@ struct ContentView: View {
         }
         .navigationTitle(String.empty)
         .toolbar {
+            ToolbarSpacer(.flexible, placement: .toolbar)
             ToolbarItemGroup(placement: .toolbar) {
-                _ToolbarSpacer()
                 TransactionButton { }
             }
         }

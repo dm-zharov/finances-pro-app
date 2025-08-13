@@ -144,31 +144,31 @@ struct TransactionEditorRow: View {
             .lineLimit(1)
         }
         .toolbarRole(.editor)
-        // .toolbar {
-        //     if horizontalSizeClass == .compact {
-        //         ToolbarItem(placement: .keyboard) {
-        //             TransactionEditorToolbar(representation: $representation)
-        //         }
-        //     }
-        //
-        //     if horizontalSizeClass == .regular, userInterfaceIdiom != .mac {
-        //         ToolbarItem(placement: .secondaryAction) {
-        //             DateSelectorItem(selection: $representation.date)
-        //         }
-        //
-        //         ToolbarItem(placement: .secondaryAction) {
-        //             CategorySelectorItem(selection: $representation.categoryID)
-        //         }
-        //
-        //         ToolbarItem(placement: .secondaryAction) {
-        //             TagsSelectorItem(selection: $representation.tags)
-        //         }
-        //
-        //         ToolbarItem(placement: .secondaryAction) {
-        //             NotesSelectorItem(selection: $representation.notes)
-        //         }
-        //     }
-        // }
+        .toolbar {
+            if horizontalSizeClass == .compact {
+                ToolbarItem(placement: .keyboard) {
+                    TransactionEditorToolbar(representation: $representation)
+                }
+            }
+
+            if horizontalSizeClass == .regular, userInterfaceIdiom != .mac {
+                ToolbarItem(placement: .secondaryAction) {
+                    DateSelectorItem(selection: $representation.date)
+                }
+
+                ToolbarItem(placement: .secondaryAction) {
+                    CategorySelectorItem(selection: $representation.categoryID)
+                }
+
+                ToolbarItem(placement: .secondaryAction) {
+                    TagsSelectorItem(selection: $representation.tags)
+                }
+
+                ToolbarItem(placement: .secondaryAction) {
+                    NotesSelectorItem(selection: $representation.notes)
+                }
+            }
+        }
         .task(id: query, priority: .userInitiated) {
             if let searchAssetID = query.searchAssetID, let asset = modelContext.existingModel(Asset.self, with: searchAssetID) {
                 self.representation.currency = Currency(asset.currencyCode)
