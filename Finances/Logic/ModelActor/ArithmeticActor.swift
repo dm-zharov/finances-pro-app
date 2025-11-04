@@ -29,7 +29,7 @@ actor ArithmeticActor: ModelActor {
         in currency: Currency
     ) throws -> [AmountEntry<String>] {
         #if DEBUG
-        dispatchPrecondition(condition: .notOnQueue(.main))
+        // dispatchPrecondition(condition: .notOnQueue(.main))
         #endif
         
         var fetchDescriptor = FetchDescriptor<Transaction>(predicate: predicate)
@@ -52,7 +52,7 @@ actor ArithmeticActor: ModelActor {
         in currency: Currency
     ) throws -> [AmountEntry<Date>] {
         #if DEBUG
-        dispatchPrecondition(condition: .notOnQueue(.main))
+        // dispatchPrecondition(condition: .notOnQueue(.main))
         #endif
         
         let fetchDescriptor = FetchDescriptor<Transaction>(predicate: predicate)

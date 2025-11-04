@@ -54,7 +54,7 @@ extension InlinePredictionField: View {
                     .labelStyle(.titleOnly)
             }
             .focusedValue(\.fieldValue, .payee)
-            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { textField in
+            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { textField in
                 textField.clearButtonMode = UITextField.ViewMode(rawValue: clearButtonMode.rawValue) ?? .never
                 textField.inlinePredictionType = .no
                 textField.spellCheckingType = .no

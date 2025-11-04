@@ -50,7 +50,7 @@ struct LunchMoneyAccessTokenView: View {
                     TextField("Enter Access Token", text: $accessToken)
                         .autocorrectionDisabled()
                         #if os(iOS)
-                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { textField in
+                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { textField in
                             textField.clearButtonMode = .whileEditing
                         }
                         #endif
