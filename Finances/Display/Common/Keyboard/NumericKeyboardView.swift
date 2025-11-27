@@ -111,7 +111,6 @@ struct KeyboardKey: View {
                 .background {
                     RoundedRectangle(cornerRadius: 6.0, style: .continuous)
                         .fill(Color.ui(.systemKeyboardKeyShadow))
-                        .offset(x: 0.0, y: 0.5)
                 }
         }
     }

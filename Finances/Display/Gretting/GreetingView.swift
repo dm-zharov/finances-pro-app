@@ -14,11 +14,11 @@ struct GreetingView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 32.0) {
                 Text("Welcome\u{00A0}to\nFinances")
-                    .font(.largeTitle)
+                    .font(.default)
                     .fontWeight(.bold)
                     .foregroundStyle(.primary)
                     .frame(maxWidth: .infinity)
-                    .multilineTextAlignment(.center)
+                    .multilineTextAlignment(.leading)
                     .padding(.top, 44.0)
                     .padding(.bottom, 24.0)
                 

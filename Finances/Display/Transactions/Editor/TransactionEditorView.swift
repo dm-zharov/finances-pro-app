@@ -74,7 +74,10 @@ struct TransactionEditorView: View {
                 }
             }
             ToolbarItemGroup(placement: .confirmationAction) {
-                Button(transaction == nil ? String(localized: "Add") : String(localized: "Save")) {
+                Button(
+                    transaction == nil ? String(localized: "Add") : String(localized: "Save"),
+                    systemImage: "checkmark"
+                ) {
                     withAnimation {
                         save(); dismiss()
                     }
@@ -82,7 +85,7 @@ struct TransactionEditorView: View {
                 .disabled(!representation.validate())
             }
             if horizontalSizeClass == .compact {
-                ToolbarItem(id: "Quickbar", placement: .keyboard) {
+                ToolbarItemGroup(placement: .keyboard) {
                     TransactionEditorToolbar(representation: $representation)
                 }
             }

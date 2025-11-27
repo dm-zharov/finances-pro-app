@@ -146,7 +146,7 @@ struct TransactionEditorRow: View {
         .toolbarRole(.editor)
         .toolbar {
             if horizontalSizeClass == .compact {
-                ToolbarItem(placement: .keyboard) {
+                ToolbarItemGroup(placement: .keyboard) {
                     TransactionEditorToolbar(representation: $representation)
                 }
             }

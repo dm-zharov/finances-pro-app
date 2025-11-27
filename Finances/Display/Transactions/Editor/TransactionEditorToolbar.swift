@@ -14,29 +14,16 @@ struct TransactionEditorToolbar: View {
     @Binding var representation: TransactionRepresentation
     
     var body: some View {
-        HStack {
-            Spacer()
-            
-            DateSelectorItem(selection: $representation.date)
-                .tint(calendar.isDateInToday(representation.date) ? .primary : Color.accentColor)
-            
-            Spacer()
-            
-            CategorySelectorItem(selection: $representation.categoryID)
-                .tint(representation.categoryID == nil ? .primary : .accentColor)
-            
-            Spacer()
-            
-            TagsSelectorItem(selection: $representation.tags)
-                .tint(representation.tags.isEmpty ? .primary : .accentColor)
-            
-            Spacer()
-            
-            NotesSelectorItem(selection: $representation.notes)
-                .tint(representation.notes.isEmpty ? .primary : .accentColor)
-            
-            Spacer()
-        }
-        .padding(.horizontal, -16.0)
+        DateSelectorItem(selection: $representation.date)
+            .tint(calendar.isDateInToday(representation.date) ? .primary : Color.accentColor)
+        
+        CategorySelectorItem(selection: $representation.categoryID)
+            .tint(representation.categoryID == nil ? .primary : .accentColor)
+        
+        TagsSelectorItem(selection: $representation.tags)
+            .tint(representation.tags.isEmpty ? .primary : .accentColor)
+        
+        NotesSelectorItem(selection: $representation.notes)
+            .tint(representation.notes.isEmpty ? .primary : .accentColor)
     }
 }
