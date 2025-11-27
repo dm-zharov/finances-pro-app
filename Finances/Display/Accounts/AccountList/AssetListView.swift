@@ -57,11 +57,19 @@ struct AssetListView: View {
                         }
                     }
                     .toolbar {
+                        #if os(iOS)
                         ToolbarItem(placement: .subtitle) {
                             AmountText(assets.sum(in: currency), currencyCode: currency.identifier)
                                 .foregroundStyle(.secondary)
                                 .font(.caption)
                         }
+                        #else
+                        ToolbarItem(placement: .status) {
+                            AmountText(assets.sum(in: currency), currencyCode: currency.identifier)
+                                .foregroundStyle(.secondary)
+                                .font(.caption)
+                        }
+                        #endif
                     }
                     .ignoresSafeArea(.keyboard, edges: .bottom)
             } else {
@@ -136,3 +144,4 @@ struct AssetListView: View {
     }
     .modelContainer(previewContainer)
 }
+

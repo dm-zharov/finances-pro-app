@@ -157,7 +157,7 @@ struct TransactionListView: View {
             NavigationStack {
                 if let transactionID = container.id, let transaction: Transaction = modelContext.registeredModel(for: transactionID) {
                     TransactionEditorView(transaction)
-                } else {
+                                        } else {
                     TransactionEditorView(nil)
                 }
             }

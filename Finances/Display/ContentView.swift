@@ -59,7 +59,6 @@ struct ContentView: View {
         .sheet(isPresented: $showTransactionEditor) {
             NavigationStack {
                 TransactionEditorView()
-                    .navigationBarBackButtonHidden()
             }
         }
         .onOpenURL { url in

@@ -290,6 +290,7 @@ struct TransactionEditorView: View {
         .listRowInsets(.init(top: 10.0, leading: 16.0, bottom: 10.0, trailing: 16.0))
 #endif
         .headerProminence(.increased)
+        .navigationBarBackButtonHidden()
     }
     
     private var form: some View {

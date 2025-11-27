@@ -40,7 +40,6 @@
 		23AEDCB22B49A27D0055A930 /* CurrencyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 23AEDCB12B49A27D0055A930 /* CurrencyKit */; };
 		23AEDCD62B49EFDD0055A930 /* CurrencyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 23AEDCD52B49EFDD0055A930 /* CurrencyKit */; };
 		23DB9CFB2C90727F0098B17C /* Expression in Frameworks */ = {isa = PBXBuildFile; productRef = 23DB9CFA2C90727F0098B17C /* Expression */; };
-		23E192B72AEBEFC400D93110 /* KeyboardKit in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 23E192B62AEBEFC400D93110 /* KeyboardKit */; };
 		23F253002AF3BE950020FCE3 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 23F252FF2AF3BE950020FCE3 /* OrderedCollections */; };
 		23FC95772B957DD3006A91EB /* AppUI in Frameworks */ = {isa = PBXBuildFile; productRef = 23FC95762B957DD3006A91EB /* AppUI */; };
 		23FC957B2B957DDB006A91EB /* AppUI in Frameworks */ = {isa = PBXBuildFile; productRef = 23FC957A2B957DDB006A91EB /* AppUI */; };
@@ -283,7 +282,6 @@
 				2334C23A2B9593BE002959F2 /* SwiftAuthn in Frameworks */,
 				2359B460295205FF00593AA9 /* CKNetworking in Frameworks */,
 				23DB9CFB2C90727F0098B17C /* Expression in Frameworks */,
-				23E192B72AEBEFC400D93110 /* KeyboardKit in Frameworks */,
 				236100F62C970B81002F6F7F /* FoundationExtension in Frameworks */,
 				2391A1402E48CC62001200C6 /* FinancesCore.framework in Frameworks */,
 				23998D4C2B872BE5009DACB9 /* SwiftSecurity in Frameworks */,
