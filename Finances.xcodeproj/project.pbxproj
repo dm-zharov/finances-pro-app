@@ -31,7 +31,6 @@
 		2391A1452E48CC67001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
 		2391A1462E48CC67001200C6 /* FinancesCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2391A14A2E48CC6B001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
-		2391A14B2E48CC6B001200C6 /* FinancesCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23998D4C2B872BE5009DACB9 /* SwiftSecurity in Frameworks */ = {isa = PBXBuildFile; productRef = 23998D4B2B872BE5009DACB9 /* SwiftSecurity */; };
 		2399F5152B163214006DD9F6 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 2399F5142B163214006DD9F6 /* SwiftCSV */; };
 		23AE5CFD2BBD010600EB59EF /* HapticFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 23AE5CFC2BBD010600EB59EF /* HapticFeedback */; };
@@ -160,17 +159,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				2391A1462E48CC67001200C6 /* FinancesCore.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2391A14E2E48CC6B001200C6 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				2391A14B2E48CC6B001200C6 /* FinancesCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,7 +618,6 @@
 				23AEDC782B49924F0055A930 /* Sources */,
 				23AEDC792B49924F0055A930 /* Frameworks */,
 				23AEDC7A2B49924F0055A930 /* Resources */,
-				2391A14E2E48CC6B001200C6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
