@@ -61,27 +61,28 @@ struct OverviewView: View {
             .listStyle(.sidebar)
             #endif
             .ignoresSafeArea(.keyboard, edges: .bottom)
-//            .searchable(text: $searchText)
-//            .focusedSceneValue(\.searchText, searchText)
-//            .searchSuggestions {
-//                if !searchText.isEmpty {
-//                    DynamicQueryView(
-//                        query: Query(TransactionQuery(
-//                            searchText: searchText
-//                        ).fetchDescriptor)
-//                    ) { transactions in
-//                        ForEach(transactions.grouped(by: \.date.localizedDescription).elements, id: \.key) { value, transactions in
-//                            Section(value) {
-//                                ForEach(transactions) { transaction in
-//                                    NavigationLink(route: .transaction(id: transaction.externalIdentifier)) {
-//                                        TransactionItemRow(transaction)
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+            .searchable(text: $searchText, prompt: "Search transactions")
+            .focusedSceneValue(\.searchText, searchText)
+            .searchSuggestions {
+                if !searchText.isEmpty {
+                    DynamicQueryView(
+                        query: Query(TransactionQuery(
+                            searchText: searchText,
+                            searchDateInterval: dateInterval
+                        ).fetchDescriptor)
+                    ) { transactions in
+                        ForEach(transactions.grouped(by: \.date.localizedDescription).elements, id: \.key) { value, transactions in
+                            Section(value) {
+                                ForEach(transactions) { transaction in
+                                    NavigationLink(route: .transaction(id: transaction.externalIdentifier)) {
+                                        TransactionItemRow(transaction)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         .navigationTitle("Finances")
         .toolbarTitleDisplayMode(.automatic)
