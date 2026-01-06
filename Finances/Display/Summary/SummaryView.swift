@@ -12,112 +12,96 @@ import FoundationExtension
 import CurrencyKit
 
 extension EdgeInsets {
-    static let zero = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
+    static let zero = EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
     static let compact = EdgeInsets(top: 8.0, leading: 8.0, bottom: 8.0, trailing: 8.0)
 }
 
 struct SummaryView: View {
+    // MARK: - Environment
     @Environment(\.currency) private var currency
     @Environment(\.dateInterval) private var dateInterval
     
-    @State private var data: [AmountEntry<String>] = [] {
-        didSet {
-            isLoading = false
-        }
-    }
-    var visibleData: [AmountEntry<String>] {
-        let visibleCategories = visibleCategories
-        return data.filter { element in
-            if element.isUncategorized {
-                return showIncome == (element.amount > .zero)
-            } else {
-                return visibleCategories.contains(where: { category in category.name == element.name })
-            }
-        }.sorted(by: \.amount, order: .forward)
-    }
-
+    // MARK: - Queries
     @Query private var categories: [Category]
-    var visibleCategories: [Category] {
-        return (try? categories.filter(
-            Category.predicate(isIncome: showIncome, includeTransient: showTransient))
-        ) ?? []
-    }
-    
     @Query private var categoryGroups: [CategoryGroup]
-
+    
+    // MARK: - State
+    @State private var data: [AmountEntry<String>] = []
     @State private var showIncome: Bool = false
     @State private var showTransient: Bool = false
-
+    @State private var isLoading: Bool = true
+    
     #if os(iOS)
     @State private var selection: NavigationRoute?
     #endif
-    @State private var isLoading: Bool = true
     
+    // MARK: - Computed Properties
+    private var visibleCategories: [Category] {
+        (try? categories.filter(
+            Category.predicate(isIncome: showIncome, includeTransient: showTransient)
+        )) ?? []
+    }
+    
+    private var visibleData: [AmountEntry<String>] {
+        data.filter { element in
+            if element.isUncategorized {
+                return showIncome == (element.amount > .zero)
+            } else {
+                return visibleCategories.contains(where: { $0.name == element.name })
+            }
+        }.sorted(by: \.amount, order: .forward)
+    }
+    
+    private var hasTransientCategories: Bool {
+        categories.contains(where: { $0.isTransient == true })
+    }
+    
+    // MARK: - Body
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
 #endif
-        VStack {
+        Group {
             #if os(iOS)
-                list
+            list
             #else
-                form
+            form
             #endif
         }
         .navigationTitle("Summary")
         .toolbar {
             ToolbarSpacer(.flexible, placement: .toolbar)
             ToolbarItem(placement: .toolbar) {
-                if categories.contains(where: { $0.isTransient == true }) {
-                    Menu {
-                        if showTransient {
-                            Button("Hide Excluded", systemImage: "eye.slash") {
-                                showTransient = false
-                            }
-                        } else {
-                            Button("Show Excluded", systemImage: "eye") {
-                                showTransient = true
-                            }
-                        }
-                    } label: {
-                        Label {
-                            Text("Filter")
-                        } icon: {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
-                                .symbolVariant(showTransient ? .fill : .none)
-                        }
-                    }
-                }
+                filterButton
             }
         }
         .task(id: dateInterval, priority: .high) {
-            self.data = await fetch(
-                with: Request(currency: currency, dateInterval: dateInterval)
-            )
+            await loadData()
         }
     }
     
+    // MARK: - Private Methods
+    private func loadData() async {
+        isLoading = true
+        data = await fetch(with: Request(currency: currency, dateInterval: dateInterval))
+        isLoading = false
+    }
+}
+
+// MARK: - Platform-Specific Views
+private extension SummaryView {
     #if os(iOS)
     @MainActor
     var list: some View {
         List {
-            selector
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets(top: 6.0, leading: 0, bottom: 6.0, trailing: 0))
-            
-            Section("Chart") {
-                chart
-            }
-            
-            breakdown
-                .listRowInsets(.init(top: .zero, leading: 16, bottom: .zero, trailing: 16))
-            shimmers
-                .listRowInsets(.init(top: .zero, leading: 16, bottom: .zero, trailing: 16))
+            selectorSection
+            chartSection
+            breakdownSection
+            shimmerSection
             
             #if BUDGETS
             if !showIncome {
-                limits
-                    .listRowInsets(.init(top: .zero, leading: 16, bottom: .zero, trailing: 16))
+                budgetSection
             }
             #endif
         }
@@ -142,13 +126,61 @@ struct SummaryView: View {
         .formStyle(.grouped)
     }
     #endif
+}
+
+// MARK: - View Components
+private extension SummaryView {
+    var selectorSection: some View {
+        selector
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets(top: 6.0, leading: 0, bottom: 6.0, trailing: 0))
+    }
+    
+    var chartSection: some View {
+        Section("Chart") {
+            chart
+        }
+    }
+    
+    var breakdownSection: some View {
+        breakdown
+            .listRowInsets(.init(top: .zero, leading: 16, bottom: .zero, trailing: 16))
+    }
+    
+    var shimmerSection: some View {
+        shimmers
+            .listRowInsets(.init(top: .zero, leading: 16, bottom: .zero, trailing: 16))
+    }
+    
+    #if BUDGETS
+    var budgetSection: some View {
+        limits
+            .listRowInsets(.init(top: .zero, leading: 16, bottom: .zero, trailing: 16))
+    }
+    #endif
+    
+    var filterButton: some View {
+        Group {
+            if hasTransientCategories {
+                Menu {
+                    Button(
+                        showTransient ? "Hide Excluded" : "Show Excluded",
+                        systemImage: showTransient ? "eye.slash" : "eye"
+                    ) {
+                        showTransient.toggle()
+                    }
+                } label: {
+                    Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+                        .symbolVariant(showTransient ? .fill : .none)
+                }
+            }
+        }
+    }
     
     var selector: some View {
         Picker(selection: $showIncome) {
-            Text("Spending")
-                .tag(false)
-            Text("Incomes")
-                .tag(true)
+            Text("Spending").tag(false)
+            Text("Incomes").tag(true)
         } label: {
             Text("Kind")
         }
@@ -159,40 +191,44 @@ struct SummaryView: View {
     }
     
     var chart: some View {
-        if !data.isEmpty {
-            CategoryBreakdownChart(
-                data: visibleData,
-                colors: Dictionary(grouping: categories) { category in
-                    category.name
-                }.mapValues { categories in
-                    Color(colorName: ColorName(rawValue: categories.first?.colorName))
-                }
-            )
-        } else {
-            CategoryBreakdownChart(
-                data: .loading,
-                colors: [:]
-            )
-        }
+        CategoryBreakdownChart(
+            data: data.isEmpty ? .loading : visibleData,
+            colors: categoryColorMap
+        )
+    }
+    
+    private var categoryColorMap: [String: Color] {
+        Dictionary(grouping: categories, by: { $0.name })
+            .mapValues { categories in
+                Color(colorName: ColorName(rawValue: categories.first?.colorName))
+            }
     }
     
     @ViewBuilder
     var breakdown: some View {
         if isLoading {
-            Section {
-                HStack {
-                    Spacer()
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                    Spacer()
-                }
-            }
-        } else if let visibleData = .some(visibleData), !visibleData.isEmpty {
+            loadingView
+        } else if !visibleData.isEmpty {
             SummaryBreakdownContent(data: visibleData)
         } else {
-            Text("No transactions for the selected period.")
-                .foregroundStyle(.secondary)
+            emptyStateView
         }
+    }
+    
+    private var loadingView: some View {
+        Section {
+            HStack {
+                Spacer()
+                ProgressView()
+                    .progressViewStyle(.circular)
+                Spacer()
+            }
+        }
+    }
+    
+    private var emptyStateView: some View {
+        Text("No transactions for the selected period.")
+            .foregroundStyle(.secondary)
     }
     
     #if BUDGETS
@@ -203,25 +239,29 @@ struct SummaryView: View {
 
     @ViewBuilder
     var shimmers: some View {
-        // Prevents toolbar flickering on push transition.
-        if data.isEmpty, let visibleCategories = .some(visibleCategories), visibleCategories.count > 1 {
+        if shouldShowShimmers {
             Section {
-                ForEach(1..<visibleCategories.count, id: \.self) { number in
+                ForEach(1..<visibleCategories.count, id: \.self) { _ in
                     VStack { }
                         .frame(height: 54.0)
                 }
             }
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
-#if os(iOS)
+            #if os(iOS)
             .listSectionSpacing(.zero)
-#endif
+            #endif
         }
+    }
+    
+    private var shouldShowShimmers: Bool {
+        data.isEmpty && visibleCategories.count > 1
     }
 }
 
+// MARK: - Data Fetching
 private extension SummaryView {
-    struct Request {
+    struct Request: Sendable {
         let currency: Currency
         let dateInterval: DateInterval
     }
@@ -245,13 +285,7 @@ private extension SummaryView {
     }
 }
 
-#Preview {
-    NavigationStack {
-        SummaryView()
-    }
-    .modelContainer(previewContainer)
-}
-
+// MARK: - Extensions
 extension AmountEntry<String> {
     var isUncategorized: Bool {
         name == String(localized: "Uncategorized")
@@ -263,3 +297,12 @@ private extension Array where Element == AmountEntry<String> {
         [AmountEntry<String>(id: String(localized: "Calculating..."), amount: .zero)]
     }
 }
+
+// MARK: - Preview
+#Preview {
+    NavigationStack {
+        SummaryView()
+    }
+    .modelContainer(previewContainer)
+}
+
