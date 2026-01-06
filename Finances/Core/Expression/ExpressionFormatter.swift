@@ -10,78 +10,72 @@ import Expression
 
 enum ExpressionFormatterError: Error {
     case parsingError
+    case invalidCharacters
+    case tooManyDecimalSeparators
+    case consecutiveOperators
+    case divisionByZero
+    
+    var localizedDescription: String {
+        switch self {
+        case .parsingError:
+            return String(localized: "Unable to parse expression")
+        case .invalidCharacters:
+            return String(localized: "Expression contains invalid characters")
+        case .tooManyDecimalSeparators:
+            return String(localized: "Expression contains multiple decimal separators")
+        case .consecutiveOperators:
+            return String(localized: "Expression contains consecutive operators")
+        case .divisionByZero:
+            return String(localized: "Division by zero is not allowed")
+        }
+    }
 }
 
 final class ExpressionFormatter: Formatter {
+    
+    // MARK: - Public Methods
+    
+    /// Converts a string expression to a `Decimal` value.
+    /// - Parameter string: The expression string to evaluate.
+    /// - Returns: The evaluated `Decimal` value, or `nil` if the expression is incomplete or invalid.
+    /// - Throws: `ExpressionFormatterError` if the expression is malformed.
     func value(from string: String) throws(ExpressionFormatterError) -> Decimal? {
-        if string.isEmpty {
+        // Empty strings evaluate to zero
+        guard !string.isEmpty else {
             return .zero
         }
         
-        if string == "0" {
+        // Single "0" returns nil (incomplete input)
+        guard string != "0" else {
             return nil
         }
         
+        // Handle single operator case
         if let expressionOperator = ExpressionOperator(rawValue: string) {
-            switch expressionOperator {
-            case .subtract:
-                return nil
-            default:
-                throw .parsingError
-            }
+            return try handleSingleOperator(expressionOperator)
         }
         
-        guard !string.hasSuffix("\(ExpressionOperator.divide.rawValue)0") else {
-            throw .parsingError
-        }
+        // Validate the expression
+        try validateExpression(string)
         
-        let expressionCharacters: CharacterSet = .expressionSymbols.subtracting(.expressionModifiers)
-        guard CharacterSet(charactersIn: string).isSubset(of: expressionCharacters) else {
-            throw .parsingError
-        }
-
-        if string.count(where: { character in ExpressionSeparator(character) != nil }) > 1 {
-            throw .parsingError
-        }
-        
-        // String not contains two symbols in a row.
-        var previousCharacter: Character?
-        for character in string {
-            if let previousCharacter, CharacterSet.expressionOperators.containsUnicodeScalars(of: previousCharacter) {
-                if CharacterSet.expressionOperators.containsUnicodeScalars(of: character) {
-                    throw .parsingError
-                }
-            }
-            previousCharacter = character
-        }
-
-        do {
-            let evaluator = ExpressionEvaluator(
-                string
-                    .replacingOccurrences(of: ExpressionSeparator.comma.rawValue, with: ExpressionSeparator.dot.rawValue)
-                    .replacingOccurrences(of: ExpressionOperator.subtract.rawValue, with: "-")
-                    .replacingOccurrences(of: ExpressionOperator.multiply.rawValue, with: "*")
-            )
-            return try Decimal(evaluator.evaluate())
-        } catch {
-            return nil
-        }
+        // Normalize and evaluate
+        return try evaluateExpression(string)
     }
     
+    /// Converts a `Decimal` value to its string representation.
+    /// - Parameter value: The decimal value to format.
+    /// - Returns: A string representation of the value, or empty string if zero.
     func string(from value: Decimal) -> String {
-        if value.isZero {
-            return ""
-        } else {
-            return value.formatted(.number.grouping(.never))
-        }
+        value.isZero ? "" : value.formatted(.number.grouping(.never))
     }
+    
+    // MARK: - Formatter Overrides
     
     override func string(for obj: Any?) -> String? {
-        if let value = obj as? Decimal {
-            return string(from: value)
-        } else {
+        guard let value = obj as? Decimal else {
             return nil
         }
+        return string(from: value)
     }
     
     override func isPartialStringValid(
@@ -89,39 +83,116 @@ final class ExpressionFormatter: Formatter {
         newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?,
         errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
     ) -> Bool {
-        return false
+        false
+    }
+    
+    // MARK: - Private Validation Methods
+    
+    private func handleSingleOperator(_ operator: ExpressionOperator) throws(ExpressionFormatterError) -> Decimal? {
+        switch `operator` {
+        case .subtract:
+            return nil
+        default:
+            throw .parsingError
+        }
+    }
+    
+    private func validateExpression(_ string: String) throws(ExpressionFormatterError) {
+        // Check for division by zero pattern
+        guard !string.hasSuffix("\(ExpressionOperator.divide.rawValue)0") else {
+            throw .divisionByZero
+        }
+        
+        // Validate character set (excluding modifiers)
+        try validateCharacterSet(string)
+        
+        // Validate decimal separator count
+        try validateDecimalSeparators(string)
+        
+        // Validate no consecutive operators
+        try validateNoConsecutiveOperators(string)
+    }
+    
+    private func validateCharacterSet(_ string: String) throws(ExpressionFormatterError) {
+        let allowedCharacters: CharacterSet = .expressionSymbols.subtracting(.expressionModifiers)
+        guard CharacterSet(charactersIn: string).isSubset(of: allowedCharacters) else {
+            throw .invalidCharacters
+        }
+    }
+    
+    private func validateDecimalSeparators(_ string: String) throws(ExpressionFormatterError) {
+        let separatorCount = string.count { ExpressionSeparator($0) != nil }
+        guard separatorCount <= 1 else {
+            throw .tooManyDecimalSeparators
+        }
+    }
+    
+    private func validateNoConsecutiveOperators(_ string: String) throws(ExpressionFormatterError) {
+        var previousCharacter: Character?
+        
+        for character in string {
+            if let previous = previousCharacter,
+               CharacterSet.expressionOperators.containsUnicodeScalars(of: previous),
+               CharacterSet.expressionOperators.containsUnicodeScalars(of: character) {
+                throw .consecutiveOperators
+            }
+            previousCharacter = character
+        }
+    }
+    
+    // MARK: - Private Evaluation Methods
+    
+    private func evaluateExpression(_ string: String) throws(ExpressionFormatterError) -> Decimal? {
+        let normalizedString = normalizeExpression(string)
+        
+        do {
+            let evaluator = ExpressionEvaluator(normalizedString)
+            let result = try evaluator.evaluate()
+            return Decimal(result)
+        } catch {
+            // Expression library couldn't evaluate, return nil for incomplete expressions
+            return nil
+        }
+    }
+    
+    private func normalizeExpression(_ string: String) -> String {
+        string
+            .replacingOccurrences(of: ExpressionSeparator.comma.rawValue, with: ExpressionSeparator.dot.rawValue)
+            .replacingOccurrences(of: ExpressionOperator.subtract.rawValue, with: "-")
+            .replacingOccurrences(of: ExpressionOperator.multiply.rawValue, with: "*")
     }
 }
 
+// MARK: - CharacterSet Extensions
+
 extension CharacterSet {
-    /// Brackets.
-    static let expressionBrackets = CharacterSet(
-        charactersIn: "()[]{}"
-    )
+    /// Character set containing brackets: `()[]{}`
+    static let expressionBrackets = CharacterSet(charactersIn: "()[]{}")
     
-    /// Separators.
-    static let expressionSeparators = CharacterSet(
-        charactersIn: ",."
-    )
+    /// Character set containing decimal separators: `,.`
+    static let expressionSeparators = CharacterSet(charactersIn: ",.")
 
-    /// Modifiers.
+    /// Character set containing expression modifiers (negate, equal, etc.)
     static let expressionModifiers = CharacterSet(
-        charactersIn: ExpressionModifier.allCases.map(\.rawValue).joined(separator: .empty)
+        charactersIn: ExpressionModifier.allCases.map(\.rawValue).joined()
     )
     
-    /// Operators.
+    /// Character set containing all expression operators (+, -, ×, /)
     static let expressionOperators = ExpressionOperator.allCases
-        .reduce(CharacterSet()) { $0.union($1.characterSet) }
+        .reduce(into: CharacterSet()) { $0 = $0.union($1.characterSet) }
 
-    /// Symbols.
+    /// Character set containing all valid expression symbols
     static let expressionSymbols = CharacterSet.decimalDigits
-        .union(expressionSeparators)
-        .union(expressionModifiers)
-        .union(expressionOperators)
-        .union(expressionBrackets)
+        .union(.expressionSeparators)
+        .union(.expressionModifiers)
+        .union(.expressionOperators)
+        .union(.expressionBrackets)
 }
 
+// MARK: - Numeric Extensions
+
 extension BinaryFloatingPoint {
+    /// Returns the negative value of this number.
     var negative: Self {
         var value = self
         value.negate()
@@ -130,6 +201,7 @@ extension BinaryFloatingPoint {
 }
 
 extension Decimal {
+    /// Returns the negative value of this decimal.
     var negative: Decimal {
         var value = self
         value.negate()
@@ -138,12 +210,8 @@ extension Decimal {
 }
 
 extension FloatingPointSign {
+    /// Toggles between plus and minus signs.
     mutating func toggle() {
-        switch self {
-        case .plus:
-            self = .minus
-        case .minus:
-            self = .plus
-        }
+        self = self == .plus ? .minus : .plus
     }
 }
