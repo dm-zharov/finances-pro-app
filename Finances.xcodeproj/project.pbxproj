@@ -17,6 +17,7 @@
 		236100F82C970B89002F6F7F /* FoundationExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 236100F72C970B89002F6F7F /* FoundationExtension */; };
 		236100FA2C970B8F002F6F7F /* FoundationExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 236100F92C970B8F002F6F7F /* FoundationExtension */; };
 		237B95832BBAB70600FDE1A9 /* HapticFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 237B95822BBAB70600FDE1A9 /* HapticFeedback */; };
+		2389D32A2F0B9D65006A601B /* KeyboardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 23E192B62AEBEFC400D93110 /* KeyboardKit */; };
 		23919FFD2E4863D6001200C6 /* FinancesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 23AEDC7C2B49924F0055A930 /* FinancesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2391A00E2E488587001200C6 /* FinancesCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2391A0032E488587001200C6 /* FinancesCore.framework */; };
 		2391A0AD2E48865D001200C6 /* AppUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2391A0AC2E48865D001200C6 /* AppUI */; };
@@ -275,6 +276,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2389D32A2F0B9D65006A601B /* KeyboardKit in Frameworks */,
 				23AE5CFD2BBD010600EB59EF /* HapticFeedback in Frameworks */,
 				23AEDCB22B49A27D0055A930 /* CurrencyKit in Frameworks */,
 				2316106C2AEE636500C269D8 /* KeyboardKit in Frameworks */,
