@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 import TipKit
 import HapticFeedback
-import FinancesCore
 
 struct BudgetEditorView: View {
     @Environment(\.modelContext) private var modelContext

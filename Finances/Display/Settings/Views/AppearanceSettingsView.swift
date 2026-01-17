@@ -8,7 +8,6 @@
 import SwiftUI
 import AppUI
 import FoundationExtension
-import FinancesCore
 
 extension ColorScheme: @retroactive RawRepresentable {
     public var rawValue: String {

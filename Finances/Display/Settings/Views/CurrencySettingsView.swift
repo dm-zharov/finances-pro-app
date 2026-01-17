@@ -8,7 +8,6 @@
 import SwiftUI
 import FoundationExtension
 import CurrencyKit
-import FinancesCore
 
 struct CurrencySettingsView: View {
     @Environment(\.modelContext) private var modelContext

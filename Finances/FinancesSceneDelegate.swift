@@ -9,7 +9,6 @@
 import UIKit
 import SwiftUI
 import FoundationExtension
-import FinancesCore
 
 class FinancesSceneDelegate: NSObject, UIWindowSceneDelegate {
     var window: UIWindow?

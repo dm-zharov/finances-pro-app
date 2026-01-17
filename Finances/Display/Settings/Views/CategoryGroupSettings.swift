@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 import FoundationExtension
 import AppUI
-import FinancesCore
 
 struct CategoryGroupItemRow: View {
     @Environment(\.isInlineMenuVisible) private var isInlineMenuVisible
