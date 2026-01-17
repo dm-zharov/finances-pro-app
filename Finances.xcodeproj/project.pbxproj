@@ -190,7 +190,6 @@
 		2391971D2E47E26F001200C6 /* FinancesTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesTests; sourceTree = "<group>"; };
 		239197672E47E271001200C6 /* FinancesAppCore */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesAppCore; sourceTree = "<group>"; };
 		2391995B2E47E2F5001200C6 /* Finances */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (2391A12B2E48CB83001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 23919A252E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 23919A242E47E2F5001200C6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Finances; sourceTree = "<group>"; };
-		2391A0132E488587001200C6 /* FinancesCoreTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesCoreTests; sourceTree = "<group>"; };
 		2391A1152E48C999001200C6 /* FinancesAppIntents */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FinancesAppIntents; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -278,7 +277,6 @@
 				2391995B2E47E2F5001200C6 /* Finances */,
 				2391A1152E48C999001200C6 /* FinancesAppIntents */,
 				239197672E47E271001200C6 /* FinancesAppCore */,
-				2391A0132E488587001200C6 /* FinancesCoreTests */,
 				2391971D2E47E26F001200C6 /* FinancesTests */,
 				239197192E47E26B001200C6 /* FinancesUITests */,
 				239197042E47E268001200C6 /* FinancesWidget */,
@@ -999,6 +997,7 @@
 				CODE_SIGN_ENTITLEMENTS = Finances/FinancesDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_ASSET_PATHS = "\"Finances/Preview Content\"";
 				DEVELOPMENT_TEAM = J59EP59PB8;
 				ENABLE_APP_SANDBOX = YES;
@@ -1019,6 +1018,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.1;
 				MOMC_NO_MAX_PROPERTY_COUNT_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.zharov.sandbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1042,6 +1042,7 @@
 				CODE_SIGN_ENTITLEMENTS = Finances/Finances.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_ASSET_PATHS = "\"Finances/Preview Content\"";
 				DEVELOPMENT_TEAM = J59EP59PB8;
 				ENABLE_APP_SANDBOX = YES;
@@ -1062,6 +1063,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.1;
 				MOMC_NO_MAX_PROPERTY_COUNT_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.zharov.finances;
 				PRODUCT_NAME = "$(TARGET_NAME)";
