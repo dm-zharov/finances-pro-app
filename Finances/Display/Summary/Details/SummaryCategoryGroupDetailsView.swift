@@ -103,7 +103,7 @@ extension SummaryCategoryGroupDetailsView: SummaryDetailsView {
                         try await ArithmeticActor.shared.sum(
                             predicate: predicate,
                             granularity: request.granularity,
-                            in: currency
+                            in: request.currency
                         )
                     }
                 }

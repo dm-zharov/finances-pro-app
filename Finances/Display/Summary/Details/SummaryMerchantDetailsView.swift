@@ -103,7 +103,7 @@ extension SummaryMerchantDetailsView: SummaryDetailsView {
             return try await ArithmeticActor.shared.sum(
                 predicate: predicate,
                 granularity: request.granularity,
-                in: currency
+                in: request.currency
             )
         } catch {
             assertionFailure(error.localizedDescription)

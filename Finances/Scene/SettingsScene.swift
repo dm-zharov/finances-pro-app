@@ -11,8 +11,6 @@ import SwiftAuthn
 import SwiftData
 
 struct SettingsScene: Scene {
-    @Environment(BiometricAuthenticationController.self) private var authenticationController
-    
     @State private var selection: Int = 0
     @State private var isPresented: Bool = false
     
@@ -37,7 +35,7 @@ struct SettingsScene: Scene {
                         CategorySettingsLabel()
                     }
                 
-                if let canAuthenticate = try? authenticationController.checkCanAuthenticate(), canAuthenticate {
+                if 3 == 4 {
                     SecuritySettingsView()
                         .tag(3)
                         .tabItem {
