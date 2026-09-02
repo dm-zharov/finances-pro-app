@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import CurrencyKit
 
 struct SummaryPreview: View {
@@ -42,21 +43,34 @@ struct SummaryPreview: View {
             id: ID(dateInterval: dateInterval, currency: currency),
             priority: .high
         ) {
-            let response = await fetch(
-                with: Request(
-                    currency: currency,
-                    granularity: {
-                        if let granularity = calendar.granularity(for: dateInterval) {
-                            return granularity == .year ? .month : .day
-                        } else {
-                            return .year
-                        }
-                    }(),
-                    dateInterval: dateInterval
-                )
+            await loadData()
+        }
+        .task(priority: .high) {
+            await observeModelChanges()
+        }
+    }
+
+    private func loadData() async {
+        let response = await fetch(
+            with: Request(
+                currency: currency,
+                granularity: {
+                    if let granularity = calendar.granularity(for: dateInterval) {
+                        return granularity == .year ? .month : .day
+                    } else {
+                        return .year
+                    }
+                }(),
+                dateInterval: dateInterval
             )
-            self.data = response.data
-            self.visibleDateInterval = response.visibleDateInterval
+        )
+        self.data = response.data
+        self.visibleDateInterval = response.visibleDateInterval
+    }
+
+    private func observeModelChanges() async {
+        for await _ in NotificationCenter.default.notifications(named: ModelContext.didChange) {
+            await loadData()
         }
     }
 }

@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 import AppUI
 import CurrencyKit
 import FoundationExtension
 
 @MainActor
 struct SummaryCategoryDetailsView: View {
+    private struct ID: Equatable {
+        let categoryID: Category.ExternalID
+        let currency: Currency
+        let granularity: Calendar.Component
+        let dateInterval: DateInterval
+    }
+
     @Environment(\.dateInterval) var dateInterval
     @Environment(\.calendar) var calendar
     @Environment(\.currency) var currency
@@ -104,15 +112,19 @@ struct SummaryCategoryDetailsView: View {
                 .listSectionSpacing(.compact)
                 #endif
             }
-            .task(id: category.id, priority: .high) {
-                self.data = await fetch(
-                    with: Request(
-                        currency: currency,
-                        granularity: granularity,
-                        dateInterval: dateInterval,
-                        categoryID: category.externalIdentifier
-                    )
-                )
+            .task(
+                id: ID(
+                    categoryID: category.externalIdentifier,
+                    currency: currency,
+                    granularity: granularity,
+                    dateInterval: dateInterval
+                ),
+                priority: .high
+            ) {
+                await loadData()
+            }
+            .task(priority: .high) {
+                await observeModelChanges()
             }
         }
         .navigationTitle(category.name)
@@ -120,6 +132,23 @@ struct SummaryCategoryDetailsView: View {
     
     init(_ category: Category) {
         self.category = category
+    }
+
+    private func loadData() async {
+        self.data = await fetch(
+            with: Request(
+                currency: currency,
+                granularity: granularity,
+                dateInterval: dateInterval,
+                categoryID: category.externalIdentifier
+            )
+        )
+    }
+
+    private func observeModelChanges() async {
+        for await _ in NotificationCenter.default.notifications(named: ModelContext.didChange) {
+            await loadData()
+        }
     }
 }
 

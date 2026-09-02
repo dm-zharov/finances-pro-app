@@ -6,11 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 import AppUI
 import CurrencyKit
 
 @MainActor
 struct SummaryCategoryGroupDetailsView: View {
+    private struct ID: Equatable {
+        let categoryGroupID: CategoryGroup.ExternalID
+        let currency: Currency
+        let granularity: Calendar.Component
+        let dateInterval: DateInterval
+    }
+
     @Environment(\.dateInterval) var dateInterval
     @Environment(\.calendar) var calendar
     @Environment(\.currency) var currency
@@ -62,15 +70,19 @@ struct SummaryCategoryGroupDetailsView: View {
                     )
                 )
             }
-            .task(id: categoryGroup.id, priority: .high) {
-                self.data = await fetch(
-                    with: Request(
-                        currency: currency,
-                        granularity: granularity,
-                        dateInterval: dateInterval,
-                        categoryIDs: (categoryGroup.categories ?? []).map(\.externalIdentifier)
-                    )
-                )
+            .task(
+                id: ID(
+                    categoryGroupID: categoryGroup.externalIdentifier,
+                    currency: currency,
+                    granularity: granularity,
+                    dateInterval: dateInterval
+                ),
+                priority: .high
+            ) {
+                await loadData()
+            }
+            .task(priority: .high) {
+                await observeModelChanges()
             }
         }
         .navigationTitle(categoryGroup.name)
@@ -78,6 +90,23 @@ struct SummaryCategoryGroupDetailsView: View {
     
     init(_ categoryGroup: CategoryGroup) {
         self.categoryGroup = categoryGroup
+    }
+
+    private func loadData() async {
+        self.data = await fetch(
+            with: Request(
+                currency: currency,
+                granularity: granularity,
+                dateInterval: dateInterval,
+                categoryIDs: (categoryGroup.categories ?? []).map(\.externalIdentifier)
+            )
+        )
+    }
+
+    private func observeModelChanges() async {
+        for await _ in NotificationCenter.default.notifications(named: ModelContext.didChange) {
+            await loadData()
+        }
     }
 }
 

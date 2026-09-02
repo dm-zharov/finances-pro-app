@@ -6,11 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 import AppUI
 import CurrencyKit
 
 @MainActor
 struct SummaryMerchantDetailsView: View {
+    private struct ID: Equatable {
+        let merchantID: Merchant.ExternalID
+        let currency: Currency
+        let granularity: Calendar.Component
+        let dateInterval: DateInterval
+    }
+
     @Environment(\.dateInterval) var dateInterval
     @Environment(\.calendar) var calendar
     @Environment(\.currency) var currency
@@ -64,15 +72,19 @@ struct SummaryMerchantDetailsView: View {
                 .listSectionSpacing(.compact)
                 #endif
             }
-            .task(id: payee.id, priority: .high) {
-                self.data = await fetch(
-                    with: Request(
-                        currency: currency,
-                        granularity: granularity,
-                        dateInterval: dateInterval,
-                        merchantID: payee.externalIdentifier
-                    )
-                )
+            .task(
+                id: ID(
+                    merchantID: payee.externalIdentifier,
+                    currency: currency,
+                    granularity: granularity,
+                    dateInterval: dateInterval
+                ),
+                priority: .high
+            ) {
+                await loadData()
+            }
+            .task(priority: .high) {
+                await observeModelChanges()
             }
         }
         .navigationTitle(payee.name)
@@ -80,6 +92,23 @@ struct SummaryMerchantDetailsView: View {
     
     init(_ payee: Merchant) {
         self.payee = payee
+    }
+
+    private func loadData() async {
+        self.data = await fetch(
+            with: Request(
+                currency: currency,
+                granularity: granularity,
+                dateInterval: dateInterval,
+                merchantID: payee.externalIdentifier
+            )
+        )
+    }
+
+    private func observeModelChanges() async {
+        for await _ in NotificationCenter.default.notifications(named: ModelContext.didChange) {
+            await loadData()
+        }
     }
 }
 

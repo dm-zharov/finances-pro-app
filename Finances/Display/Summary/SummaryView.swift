@@ -17,6 +17,11 @@ extension EdgeInsets {
 }
 
 struct SummaryView: View {
+    private struct ID: Equatable {
+        let currency: Currency
+        let dateInterval: DateInterval
+    }
+
     // MARK: - Environment
     @Environment(\.currency) private var currency
     @Environment(\.dateInterval) private var dateInterval
@@ -75,8 +80,11 @@ struct SummaryView: View {
                 filterButton
             }
         }
-        .task(id: dateInterval, priority: .high) {
+        .task(id: ID(currency: currency, dateInterval: dateInterval), priority: .high) {
             await loadData()
+        }
+        .task(priority: .high) {
+            await observeModelChanges()
         }
     }
     
@@ -85,6 +93,16 @@ struct SummaryView: View {
         isLoading = true
         data = await fetch(with: Request(currency: currency, dateInterval: dateInterval))
         isLoading = false
+    }
+
+    private func refreshData() async {
+        data = await fetch(with: Request(currency: currency, dateInterval: dateInterval))
+    }
+
+    private func observeModelChanges() async {
+        for await _ in NotificationCenter.default.notifications(named: ModelContext.didChange) {
+            await refreshData()
+        }
     }
 }
 
@@ -305,4 +323,3 @@ private extension Array where Element == AmountEntry<String> {
     }
     .modelContainer(previewContainer)
 }
-
