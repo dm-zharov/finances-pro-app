@@ -7,14 +7,16 @@
 
 import Foundation
 
-/// A object representation for representable types.
+/// An object representation for representable types.
 protocol ObjectRepresentation {
-    associatedtype Item: ObjectRepresentable
+    associatedtype Item: ObjectRepresentable where Item.Representation == Self
+    
+    func validate() -> Bool
 }
 
-/// A type that can be converted to and from an associated value.
+/// A type that can be converted to and from an object representation.
 protocol ObjectRepresentable {
-    associatedtype Representation
+    associatedtype Representation: ObjectRepresentation where Representation.Item == Self
     
     var objectRepresentation: Representation { get set }
 }
