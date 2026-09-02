@@ -49,9 +49,8 @@ final class CurrencyRatesStore: CurrencyRatesProvider {
         }
     }
 
-    @MainActor
     public static let shared = CurrencyRatesStore()
-    @MainActor
+
     private init() {
         updateRates();
         Task {
@@ -65,11 +64,10 @@ extension CurrencyRatesStore {
         for await _ in NotificationCenter.default.notifications(
             named: PersistentController.objectsDidChange, object: PersistentController.public
         ) {
-            await updateRates()
+            updateRates()
         }
     }
     
-    @MainActor
     func updateRates() {
         self.dataSource = CurrencyRates.dictionaryRepresentation()
     }

@@ -36,11 +36,21 @@ actor StoreQuery: ModelActor  {
     }
 }
 
+struct StoreResult<Model>: @unchecked Sendable {
+    let inserted: [Model]
+    let duplicated: [Model]
+}
+
+struct SingleStoreResult<Model>: @unchecked Sendable {
+    let inserted: Model?
+    let duplicated: Model?
+}
+
 // MARK: - Store
 
 extension StoreQuery {
     @discardableResult
-    func store(_ representations: [AssetRepresentation], ignoringDuplicates: Bool = false) throws -> (inserted: [Asset], duplicated: [Asset]) {
+    func store(_ representations: [AssetRepresentation], ignoringDuplicates: Bool = false) throws -> StoreResult<Asset> {
         var assetIDs: [String: Asset] = [:]
         
         var inserted: [Asset] = []
@@ -64,11 +74,11 @@ extension StoreQuery {
             }
         }
         
-        return (inserted, duplicated)
+        return StoreResult(inserted: inserted, duplicated: duplicated)
     }
     
     @discardableResult
-    func store(_ representations: [CategoryRepresentation], ignoringDuplicates: Bool = false) throws -> (inserted: [Category], duplicated: [Category]) {
+    func store(_ representations: [CategoryRepresentation], ignoringDuplicates: Bool = false) throws -> StoreResult<Category> {
         var categoryIDs: [String: Category] = [:]
         
         var inserted: [Category] = []
@@ -92,11 +102,11 @@ extension StoreQuery {
             }
         }
         
-        return (inserted, duplicated)
+        return StoreResult(inserted: inserted, duplicated: duplicated)
     }
     
     @discardableResult
-    func store(_ representations: [TransactionRepresentation], ignoringDuplicates: Bool = false) throws -> (inserted: [Transaction], duplicated: [Transaction]) {
+    func store(_ representations: [TransactionRepresentation], ignoringDuplicates: Bool = false) throws -> StoreResult<Transaction> {
         var transactionIDs: [String: Transaction] = [:]
         var merchantIDs: [String: Merchant] = [:]
         var assetIDs: [String: Asset] = [:]
@@ -189,14 +199,14 @@ extension StoreQuery {
             }
         }
         
-        return (inserted, duplicated)
+        return StoreResult(inserted: inserted, duplicated: duplicated)
     }
     
     @discardableResult
-    func store(_ representation: TransactionRepresentation, ignoringDuplicates: Bool = false) throws -> (inserted: Transaction?, duplicated: Transaction?) {
+    func store(_ representation: TransactionRepresentation, ignoringDuplicates: Bool = false) throws -> SingleStoreResult<Transaction> {
         guard ignoringDuplicates == true else {
-            let (inserted, duplicated) = try store([representation], ignoringDuplicates: false)
-            return (inserted.first, duplicated.first)
+            let result = try store([representation], ignoringDuplicates: false)
+            return SingleStoreResult(inserted: result.inserted.first, duplicated: result.duplicated.first)
         }
         
         let transaction = Transaction()
@@ -206,7 +216,6 @@ extension StoreQuery {
             transaction.objectRepresentation = representation
         }
         
-        return (transaction, nil)
+        return SingleStoreResult(inserted: transaction, duplicated: nil)
     }
 }
-

@@ -36,9 +36,10 @@ struct AmountText: View {
         }
         #endif
         if isCurrencyConversionEnabled, currencyCode != currency.identifier {
-            return Text("\(Image(systemName: "arrow.left.arrow.right")) ").foregroundStyle(.accent) + Text(
-                (value / Currency(currencyCode).rate(relativeTo: currency, on: date)).formatted(.currency(currency))
+            return Text(
+                "\(Image(systemName: "arrow.left.arrow.right")) \((value / Currency(currencyCode).rate(relativeTo: currency, on: date)).formatted(.currency(currency)))"
             )
+            .foregroundStyle(.accent)
         } else {
             return Text(value.formatted(.currency(.init(currencyCode))))
         }

@@ -10,7 +10,7 @@ import SwiftUI
 import Observation
 
 @Observable
-class CustomKeyboardState {
+final class CustomKeyboardState: @unchecked Sendable {
     public enum SubmitLabel: Hashable {
         case `return`
         case equal
@@ -20,7 +20,7 @@ class CustomKeyboardState {
     var submitLabel: SubmitLabel = .return
 }
 
-public typealias CustomKeyboardSubmit = () -> Void
+public typealias CustomKeyboardSubmit = @MainActor @Sendable () -> Void
 
 struct CustomKeyboardStateKey: EnvironmentKey {
     static let defaultValue: CustomKeyboardState = .init()

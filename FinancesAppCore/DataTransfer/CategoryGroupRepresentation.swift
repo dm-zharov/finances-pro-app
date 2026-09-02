@@ -9,8 +9,6 @@ import Foundation
 import SwiftData
 
 struct CategoryGroupRepresentation: ObjectRepresentation, Hashable, Identifiable {
-    typealias Item = CategoryGroup
-    
     var id: UUID = UUID()
     
     var name: String = ""

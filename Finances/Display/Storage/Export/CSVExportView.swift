@@ -11,11 +11,11 @@ import AppUI
 internal import UniformTypeIdentifiers
 
 struct CommaSeparatedText: Transferable {
-    let closure: () -> URL
+    let url: URL
     
     static var transferRepresentation: some TransferRepresentation {
         FileRepresentation(exportedContentType: .commaSeparatedText) { csv in
-            SentTransferredFile(csv.closure(), allowAccessingOriginalFile: true)
+            SentTransferredFile(csv.url, allowAccessingOriginalFile: true)
         }
     }
 }
@@ -78,7 +78,7 @@ struct CSVExportView: View {
         }
         .fileExporter(
             isPresented: $showFileExporter,
-            item: CommaSeparatedText(closure: export),
+            item: CommaSeparatedText(url: export()),
             contentTypes: [.commaSeparatedText],
             defaultFilename: "Finances.csv",
             onCompletion: { result in

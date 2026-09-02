@@ -8,19 +8,19 @@
 import SwiftUI
 
 extension ToolbarItemPlacement {
-    public static let toolbar: ToolbarItemPlacement = {
+    public static var toolbar: ToolbarItemPlacement {
         #if os(iOS)
         return .bottomBar
         #else
         return .primaryAction
         #endif
-    }()
+    }
     
-    public static let closeAction: ToolbarItemPlacement = {
+    public static var closeAction: ToolbarItemPlacement {
         #if os(iOS)
         return .confirmationAction
         #else
         return .cancellationAction
         #endif
-    }()
+    }
 }

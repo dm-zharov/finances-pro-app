@@ -10,8 +10,6 @@ import CurrencyKit
 import FoundationExtension
 
 struct AssetRepresentation: ObjectRepresentation, Hashable, Identifiable {
-    typealias Item = Asset
-    
     var id: String = UUID().uuidString
      
     var type: AssetType = .other

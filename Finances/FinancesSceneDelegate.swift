@@ -18,7 +18,7 @@ class FinancesSceneDelegate: NSObject, UIWindowSceneDelegate {
 
         windowScene.updateTraitOverrides()
         
-        if let shortcutItem = connectionOptions.shortcutItem {
+        if connectionOptions.shortcutItem != nil {
             // Save it off for later when we become active.
         }
     }

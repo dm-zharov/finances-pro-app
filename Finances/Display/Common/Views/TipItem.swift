@@ -11,7 +11,7 @@ import TipKit
 struct TipItem<Content>: View where Content : Tip {
     let tip: Content
     let arrowEdge: Edge?
-    let action: (Tips.Action) -> Void
+    let action: @MainActor @Sendable (Tips.Action) -> Void
     
     var body: some View {
         TipView(tip, arrowEdge: arrowEdge, action: action)
@@ -25,7 +25,7 @@ struct TipItem<Content>: View where Content : Tip {
     init(
         _ tip: Content,
         arrowEdge: Edge? = nil,
-        action: @escaping (Tips.Action) -> Void = { _ in }
+        action: @escaping @MainActor @Sendable (Tips.Action) -> Void = { _ in }
     ) {
         self.tip = tip
         self.arrowEdge = arrowEdge

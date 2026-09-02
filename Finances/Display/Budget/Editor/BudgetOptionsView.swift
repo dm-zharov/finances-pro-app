@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct BudgetOptionsView: View {
     enum Field: Identifiable, Hashable {

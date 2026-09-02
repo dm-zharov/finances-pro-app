@@ -25,9 +25,10 @@ struct LabeledModifier<Item>: ViewModifier where Item: View {
 #endif
 
 extension TextField {
-    func labeled(_ titleKey: LocalizedStringKey) -> some View {
+    @MainActor
+    func labeled(_ title: String) -> some View {
         #if os(iOS)
-        modifier(LabeledModifier<Self>(titleKey))
+        modifier(LabeledModifier<Self>(LocalizedStringKey(title)))
         #else
         self
         #endif

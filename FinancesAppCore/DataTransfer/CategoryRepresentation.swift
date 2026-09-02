@@ -11,8 +11,6 @@ import SwiftData
 import FoundationExtension
 
 struct CategoryRepresentation: ObjectRepresentation, Hashable, Identifiable {
-    typealias Item = Category
-    
     var id: String = UUID().uuidString
     
     var name: String = ""

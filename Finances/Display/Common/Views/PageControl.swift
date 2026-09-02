@@ -31,7 +31,8 @@ struct PageControl: UIViewRepresentable {
     
     // MARK: - Coordinator
     
-    class Coordinator: NSObject {
+    @MainActor
+    final class Coordinator: NSObject {
         @Binding var currentPage: Int
         let numberOfPages: Int
         

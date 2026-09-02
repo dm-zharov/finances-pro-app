@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 #if canImport(SwiftUIIntrospect)
 import SwiftUIIntrospect
 #endif

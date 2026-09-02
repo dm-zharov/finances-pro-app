@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import CKNetworking
 
-class APIService: NSObject, NetworkingService, ObservableObject {
+final class APIService: NSObject, NetworkingService, ObservableObject {
     let network: NetworkingClient
 
     init(token: String) {
@@ -35,4 +35,3 @@ class APIService: NSObject, NetworkingService, ObservableObject {
 
 // MARK: - URLSessionDelegate, URLSessionTaskDelegate
 extension APIService: URLSessionDelegate, URLSessionTaskDelegate { }
-

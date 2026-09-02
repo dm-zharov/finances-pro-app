@@ -207,7 +207,8 @@ struct TransactionEditorView: View {
                 }
                 .datePickerStyle(.compact)
                 
-                if 4 == 5 {
+                #if false
+                if true {
                     Picker(selection: $representation.repetition.frequency) {
                         Text("None")
                             .tag(Optional<DatePeriod>.none)
@@ -233,7 +234,7 @@ struct TransactionEditorView: View {
                         }
                     }
                     
-                    if let repetitionFrequency = representation.repetition.frequency {
+                    if representation.repetition.frequency != nil {
                         Picker("End Repeat", selection: $representation.repetition.hasEnding) {
                             Text("Never")
                                 .tag(false)
@@ -241,10 +242,7 @@ struct TransactionEditorView: View {
                                 .tag(true)
                         }
                         .onChange(of: representation.repetition.hasEnding) {
-                            if representation.repetition.hasEnding {
-//                                representation.repetition.endDate = calendar
-//                                    .date(byAdding: repetitionFrequency, to: representation.date)
-                            }
+                            _ = representation.repetition.hasEnding
                         }
                         
                         if let endDate = representation.repetition.endDate {
@@ -261,6 +259,7 @@ struct TransactionEditorView: View {
                         }
                     }
                 }
+                #endif
             }
 
             Section {

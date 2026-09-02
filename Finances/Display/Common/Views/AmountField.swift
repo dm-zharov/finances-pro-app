@@ -258,6 +258,7 @@ extension AmountField {
 }
 
 extension AmountField {
+    @MainActor
     func labeled(_ titleKey: LocalizedStringKey = "Amount") -> some View {
         #if os(iOS)
         modifier(LabeledModifier<Self>(titleKey))

@@ -40,7 +40,7 @@ actor ArithmeticActor: ModelActor {
         return Dictionary(grouping: transactions) { transaction in
             transaction.categoryName
         }.mapValues { transactions in
-            amount(for: transactions, in: currency)
+            transactions.map { transaction in transaction.amount(in: currency) }.reduce(0, +)
         }.map { category, amount in
             AmountEntry(id: category, amount: amount)
         }.sorted(by: \.amount)
@@ -67,7 +67,7 @@ actor ArithmeticActor: ModelActor {
                 return universal.startOf(granularity, for: transaction.date) ?? transaction.date
             }
         }.mapValues { transactions in
-            amount(for: transactions, in: currency)
+            transactions.map { transaction in transaction.amount(in: currency) }.reduce(0, +)
         }
         
         var minDate: Date = .distantFuture
@@ -93,12 +93,6 @@ actor ArithmeticActor: ModelActor {
         return dictionary.map { date, amount in
             AmountEntry(id: date, amount: amount)
         }.sorted(by: \.date)
-    }
-}
-
-private extension ArithmeticActor {
-    func amount(for transactions: [Transaction], in currency: Currency) -> Decimal {
-        transactions.map { transaction in transaction.amount(in: currency) }.reduce(0, +)
     }
 }
 

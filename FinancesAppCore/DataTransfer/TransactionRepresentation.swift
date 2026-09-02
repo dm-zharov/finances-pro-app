@@ -11,8 +11,6 @@ import SwiftData
 import FoundationExtension
 
 struct TransactionRepresentation: ObjectRepresentation, Identifiable {
-    typealias Item = Transaction
-    
     var id: String = UUID().uuidString
     
     var date: Date = Calendar.autoupdatingCurrent.startOfDay(for: .now)

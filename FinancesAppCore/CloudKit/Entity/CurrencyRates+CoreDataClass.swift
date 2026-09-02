@@ -15,7 +15,6 @@ import FoundationExtension
 public class CurrencyRates: NSManagedObject { }
 
 extension CurrencyRates {
-    @MainActor
     static func dictionaryRepresentation() -> [Date: [CurrencyCode.RawValue: Decimal]] {
         let modelContext = PersistentController.public.newBackgroundContext()
         

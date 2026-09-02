@@ -11,8 +11,6 @@ import SwiftData
 import FoundationExtension
 
 struct BudgetRepresentation: ObjectRepresentation, Hashable, Identifiable {
-    typealias Item = Budget
-    
     var id: UUID = UUID()
     
     var amount: Decimal = .zero

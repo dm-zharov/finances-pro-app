@@ -126,9 +126,9 @@ struct ImportResultView: View {
                             }
                         }
                         do {
-                            let (uniques, _) = try await store.store(representations, ignoringDuplicates: true)
+                            let result = try await store.store(representations, ignoringDuplicates: true)
 
-                            self.uniques.append(contentsOf: uniques)
+                            self.uniques.append(contentsOf: result.inserted)
                             self.duplicates.remove(atOffsets: indexSet)
                         } catch {
                             assertionFailure(error.localizedDescription)
@@ -156,9 +156,14 @@ struct ImportResultView: View {
 extension ImportResultView {
     func retrieve() async {
         do {
-            (self.assets, _) = try await store.store(statement.assets)
-            (self.categories, _) = try await store.store(statement.categories)
-            (self.uniques, self.duplicates) = try await store.store(statement.transactions)
+            let assetResult = try await store.store(statement.assets)
+            let categoryResult = try await store.store(statement.categories)
+            let transactionResult = try await store.store(statement.transactions)
+
+            self.assets = assetResult.inserted
+            self.categories = categoryResult.inserted
+            self.uniques = transactionResult.inserted
+            self.duplicates = transactionResult.duplicated
         } catch {
             assertionFailure(error.localizedDescription)
         }

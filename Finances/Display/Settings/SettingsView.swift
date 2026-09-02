@@ -24,9 +24,9 @@ struct SettingsView: View {
                 system
                 storage
                 feedback
-                if 4 == 5 {
-                    about
-                }
+                #if false
+                about
+                #endif
             }
             .environment(\.defaultMinListRowHeight, 48.0)
             #if os(iOS)
@@ -90,21 +90,21 @@ struct SettingsView: View {
                 AppearanceSettingsLabel()
             }
             
-            if 4 == 5 {
-                NavigationLink {
-                    NotificationSettingsView()
-                } label: {
-                    NotificationSettingsLabel()
-                }
+            #if false
+            NavigationLink {
+                NotificationSettingsView()
+            } label: {
+                NotificationSettingsLabel()
             }
+            #endif
             
-            if 4 == 5 {
-                NavigationLink {
-                    SyncSettingsView()
-                } label: {
-                    SyncSettingsLabel()
-                }
+            #if false
+            NavigationLink {
+                SyncSettingsView()
+            } label: {
+                SyncSettingsLabel()
             }
+            #endif
             
             NavigationLink {
                 SecuritySettingsView()
@@ -122,13 +122,13 @@ struct SettingsView: View {
                 ImportExportSettingsLabel()
             }
             
-            if 4 == 5 {
-                NavigationLink {
-                    BackupSettingsView()
-                } label: {
-                    BackupSettingsLabel()
-                }
+            #if false
+            NavigationLink {
+                BackupSettingsView()
+            } label: {
+                BackupSettingsLabel()
             }
+            #endif
         }
     }
     
