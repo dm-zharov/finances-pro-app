@@ -53,7 +53,7 @@ struct SummaryCategoryDetailsView: View {
                         case .month:
                             LabeledContent {
                                 AmountText(
-                                    data.map(\.amount).sum() / Decimal(calendar.range(of: .day, in: .month, for: dateInterval.start)!.upperBound),
+                                    data.map(\.amount).sum() / Decimal(calendar.range(of: .day, in: .month, for: dateInterval.start)!.count),
                                     currencyCode: currency.identifier
                                 )
                             } label: {

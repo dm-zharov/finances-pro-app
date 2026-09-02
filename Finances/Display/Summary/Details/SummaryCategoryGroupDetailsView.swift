@@ -50,7 +50,7 @@ struct SummaryCategoryGroupDetailsView: View {
                         case .month:
                             LabeledContent(
                                 "Daily Average",
-                                value: (data.map(\.amount).sum() / Decimal(calendar.range(of: .day, in: .month, for: dateInterval.start)!.upperBound) ).formatted(.currency(currency))
+                                value: (data.map(\.amount).sum() / Decimal(calendar.range(of: .day, in: .month, for: dateInterval.start)!.count) ).formatted(.currency(currency))
                             )
                         case .weekOfYear:
                             LabeledContent(
@@ -98,7 +98,7 @@ struct SummaryCategoryGroupDetailsView: View {
                 currency: currency,
                 granularity: granularity,
                 dateInterval: dateInterval,
-                categoryIDs: (categoryGroup.categories ?? []).map(\.externalIdentifier)
+                categoryGroupID: categoryGroup.externalIdentifier
             )
         )
     }
@@ -115,36 +115,23 @@ extension SummaryCategoryGroupDetailsView: SummaryDetailsView {
         let currency: Currency
         let granularity: Calendar.Component
         let dateInterval: DateInterval
-        let categoryIDs: [Category.ExternalID]
+        let categoryGroupID: CategoryGroup.ExternalID
     }
     
     typealias Response = [AmountEntry<Date>]
 
     nonisolated func fetch(with request: Request) async -> Response {
+        let predicate = TransactionQuery.predicate(
+            searchDateInterval: request.dateInterval,
+            searchCategoryGroupID: request.categoryGroupID
+        )
+
         do {
-            let data = try await withThrowingTaskGroup(of: [AmountEntry<Date>].self) { taskGroup in
-                for categoryID in request.categoryIDs {
-                    let predicate = TransactionQuery.predicate(
-                        searchDateInterval: request.dateInterval,
-                        searchCategoryID: categoryID
-                    )
-                    taskGroup.addTask {
-                        try await ArithmeticActor.shared.sum(
-                            predicate: predicate,
-                            granularity: request.granularity,
-                            in: request.currency
-                        )
-                    }
-                }
-                
-                var result: [AmountEntry<Date>] = []
-                for try await data in taskGroup {
-                    result.append(contentsOf: data)
-                }
-                return result
-            }
-            
-            return data
+            return try await ArithmeticActor.shared.sum(
+                predicate: predicate,
+                granularity: request.granularity,
+                in: request.currency
+            )
         } catch {
             assertionFailure(error.localizedDescription)
             return []
