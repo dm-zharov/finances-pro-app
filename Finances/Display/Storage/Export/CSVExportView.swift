@@ -11,12 +11,15 @@ import AppUI
 internal import UniformTypeIdentifiers
 
 struct CommaSeparatedText: Transferable {
+    static let filename = "Finances.csv"
+    
     let url: URL
     
     static var transferRepresentation: some TransferRepresentation {
         FileRepresentation(exportedContentType: .commaSeparatedText) { csv in
             SentTransferredFile(csv.url, allowAccessingOriginalFile: true)
         }
+        .suggestedFileName(CommaSeparatedText.filename)
     }
 }
 
@@ -34,6 +37,8 @@ struct CSVExportView: View {
     @State private var dateInterval: DateInterval = .defaultValue
     @State private var showDateIntervalPicker: Bool = false
     @State private var showFileExporter: Bool = false
+    @State private var exportItem: CommaSeparatedText?
+    @State private var exportError: Error?
     
     var body: some View {
         VStack {
@@ -41,20 +46,20 @@ struct CSVExportView: View {
                 Section {
                     Picker("Account", selection: $query.searchAssetID) {
                         Text("All")
-                            .tag(Optional<PersistentIdentifier>.none)
+                            .tag(Optional<Asset.ExternalID>.none)
                         Divider()
                         ForEach(assets) { asset in
                             Label(asset.name, systemImage: AssetType(rawValue: asset.type)?.symbolName ?? SymbolName.defaultValue.rawValue)
-                                .tag(Optional<PersistentIdentifier>.some(asset.id))
+                                .tag(Optional<Asset.ExternalID>.some(asset.externalIdentifier))
                         }
                     }
                     Picker("Category", selection: $query.searchCategoryID) {
                         Text("All")
-                            .tag(Optional<PersistentIdentifier>.none)
+                            .tag(Optional<Category.ExternalID>.none)
                         Divider()
                         ForEach(categories) { category in
                             Label(category.name, systemImage: SymbolName(rawValue: category.name).rawValue)
-                                .tag(Optional<PersistentIdentifier>.some(category.id))
+                                .tag(Optional<Category.ExternalID>.some(category.externalIdentifier))
                         }
                     }
                 }
@@ -72,26 +77,50 @@ struct CSVExportView: View {
             
             ToolbarItem(placement: .confirmationAction) {
                 Button("Export") {
-                    showFileExporter.toggle()
+                    do {
+                        exportItem = CommaSeparatedText(url: try export())
+                        showFileExporter = true
+                    } catch {
+                        exportError = error
+                    }
                 }
             }
         }
         .fileExporter(
             isPresented: $showFileExporter,
-            item: CommaSeparatedText(url: export()),
+            item: exportItem,
             contentTypes: [.commaSeparatedText],
-            defaultFilename: "Finances.csv",
+            defaultFilename: CommaSeparatedText.filename,
             onCompletion: { result in
-                dismiss()
+                if case .success = result {
+                    onCompletion()
+                    dismiss()
+                } else if case let .failure(error) = result {
+                    exportError = error
+                }
             },
             onCancellation: {
-                
+                exportItem = nil
             }
         )
+        .alert(
+            "Export Failed",
+            isPresented: Binding(
+                get: { exportError != nil },
+                set: { if !$0 { exportError = nil } }
+            ),
+            presenting: exportError
+        ) { _ in
+            Button("OK") {
+                exportError = nil
+            }
+        } message: { error in
+            Text(error.localizedDescription)
+        }
         .preferredContentSize(width: 600, height: 350)
     }
     
-    private func export() -> URL {
+    private func export() throws -> URL {
         let csvEnclosure: String = "\""
         let csvSeparator: String = ","
         let csvHeaders: [String] = [
@@ -112,7 +141,7 @@ struct CSVExportView: View {
         numberFormatter.decimalSeparator = "."
         numberFormatter.usesGroupingSeparator = false
         
-        for transaction in (try? modelContext.fetch(query.fetchDescriptor)) ?? [] {
+        for transaction in try modelContext.fetch(query.fetchDescriptor) {
             var csvColumns: [String] = []
             
             let dateString: String = transaction.date.formatted(.iso8601.calendar())
@@ -152,22 +181,15 @@ struct CSVExportView: View {
         }
         
         let fileManager = FileManager.default
-        do {
-            let url = try fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let fileURL = url.appending(path: "Finances.csv")
-            
-            if fileManager.fileExists(atPath: fileURL.path) {
-                try fileManager.removeItem(at: fileURL)
-            }
+        let url = try fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let fileURL = url.appending(path: CommaSeparatedText.filename)
 
-            try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
-            
-            return fileURL
-        } catch {
-            assertionFailure(error.localizedDescription)
+        if fileManager.fileExists(atPath: fileURL.path) {
+            try fileManager.removeItem(at: fileURL)
         }
-        
-        return URL(string: "")!
+
+        try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
+        return fileURL
     }
 }
 
@@ -177,6 +199,7 @@ struct CSVExportView: View {
 
 extension String {
     func enclosured(_ enclosure: String = "\"") -> String {
-        return "\(enclosure)\(self)\(enclosure)"
+        let escaped = replacingOccurrences(of: enclosure, with: enclosure + enclosure)
+        return "\(enclosure)\(escaped)\(enclosure)"
     }
 }

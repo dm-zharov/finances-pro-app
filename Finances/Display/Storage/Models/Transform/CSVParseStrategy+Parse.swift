@@ -44,13 +44,13 @@ extension CSVParseStrategy: ParseStrategy {
         
         if let category = header(for: .category), let column = value.columns?[category] {
             statement.categories = column.compactMap { string -> CategoryRepresentation? in
-                let value = transform[.account]?.transform(string) ?? string
+                let value = transform[.category]?.transform(string) ?? string
                 guard !value.isEmpty else {
                     return nil
                 }
 
                 var representation = CategoryRepresentation()
-                representation.name = transform[.account]?.transform(string) ?? string
+                representation.name = transform[.category]?.transform(string) ?? string
                 representation.id = value
                 return representation
             }
