@@ -93,10 +93,10 @@ struct CategoryEditorView: View {
                         TextField("Category Name", text: $representation.name)
                             .focused($isFocused)
                             #if os(iOS)
-                            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { textField in
-                                    textField.clearButtonMode = .whileEditing
-                                    textField.textAlignment = .center
-                                }
+                            .introspect(.textField, on: .iOS(.v18, .v26, .v27)) { textField in
+                                textField.clearButtonMode = .whileEditing
+                                textField.textAlignment = .center
+                            }
                             #endif
                             .foregroundStyle(Color(colorName: representation.colorName))
                             .font(.title2)

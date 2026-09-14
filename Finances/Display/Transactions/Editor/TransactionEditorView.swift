@@ -455,7 +455,7 @@ extension TransactionEditorView {
         .focused($focusedField, equals: .amount)
         .submitLabel(.next)
         #if os(iOS)
-        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { textField in
+        .introspect(.textField, on: .iOS(.v18, .v26, .v27)) { textField in
             textField.clearButtonMode = .whileEditing
          }
         #endif
